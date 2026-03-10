@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$250M Business Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a08;
+    --surface: #111110;
+    --card: #161614;
+    --border: #252520;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --amber: #f59e0b;
+    --cream: #f0ead6;
+    --muted: #6b6b60;
+    --text: #e8e4d8;
+    --accent-green: #4ade80;
+    --accent-blue: #60a5fa;
+    --accent-red: #f87171;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 70%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 110px);
+    font-weight: 900;
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero h1 span {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(24px, 4vw, 52px);
+    color: var(--gold-light);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-desc {
+    max-width: 680px;
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .stats-bar {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* FILTERS */
+  .filters-section {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,8,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 40px;
+  }
+
+  .filters-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-right: 8px;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.06);
+  }
+
+  /* MAIN GRID */
+  .main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 40px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    color: var(--cream);
+  }
+
+  .count-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 2px 10px;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 2px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card:hover {
+    border-color: rgba(201,168,76,0.3);
+    transform: translateY(-2px);
+    z-index: 2;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-header {
+    padding: 28px 28px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .card-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    padding: 4px 8px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .card-title-area { flex: 1; }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .card-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 2px 8px;
+    text-transform: uppercase;
+  }
+
+  .tag-capital-low { background: rgba(74,222,128,0.1); color: #4ade80; border: 1px solid rgba(74,222,128,0.2); }
+  .tag-capital-med { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+  .tag-capital-high { background: rgba(248,113,113,0.1); color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+  .tag-geo { background: rgba(96,165,250,0.1); color: #60a5fa; border: 1px solid rgba(96,165,250,0.2); }
+  .tag-sector { background: rgba(201,168,76,0.1); color: var(--gold); border: 1px solid rgba(201,168,76,0.2); }
+
+  .card-body {
+    padding: 20px 28px;
+  }
+
+  .card-summary {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 16px 28px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .metric { }
+
+  .metric-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .metric-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--gold-light);
+  }
+
+  .card-expand-btn {
+    width: 100%;
+    padding: 12px;
+    background: rgba(201,168,76,0.05);
+    border: none;
+    border-top: 1px solid var(--border);
+    color: var(--gold);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .card-expand-btn:hover {
+    background: rgba(201,168,76,0.1);
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow-y: auto;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--card);
+    border: 1px solid rgba(201,168,76,0.2);
+    max-width: 860px;
+    width: 100%;
+    position: relative;
+    animation: modalIn 0.3s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal-gold-bar {
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  }
+
+  .modal-header {
+    padding: 36px 40px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .modal-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .modal-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .modal-body { padding: 36px 40px; }
+
+  .modal-section {
+    margin-bottom: 32px;
+  }
+
+  .modal-section-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .modal-section p {
+    font-size: 15px;
+    color: #b0ac9e;
+    line-height: 1.8;
+  }
+
+  .modal-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin: 32px 0;
+  }
+
+  .modal-metric {
+    background: var(--card);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .modal-metric-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--gold-light);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .modal-metric-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* BOTTOM BAR */
+  .bottom-bar {
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero { padding: 40px 20px; }
+    .main { padding: 40px 20px; }
+    .filters-section { padding: 16px 20px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .modal { margin: 0; }
+    .modal-header, .modal-body { padding: 24px 24px; }
+    .modal-metrics-grid { grid-template-columns: 1fr; }
+    .stats-bar { gap: 24px; }
+  }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-tag">Strategic Intelligence Report · 2025–2035</div>
+  <h1>The Path to<br><span>$250 Million</span></h1>
+  <div class="hero-sub">45 High-Conviction Business Playbooks</div>
+  <p class="hero-desc">A rigorous analysis of scalable, defensible, and wealth-compounding business opportunities across every major sector — from low-capital entry points to infrastructure-grade platforms.</p>
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num">45</div>
+      <div class="stat-label">Opportunities</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Sectors</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">$250M+</div>
+      <div class="stat-label">Potential</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Capital Tiers</div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="filters-section">
+  <div class="filters-inner">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" data-filter="all">All (45)</button>
+    <button class="filter-btn" data-filter="low">Low Capital</button>
+    <button class="filter-btn" data-filter="medium">Medium Capital</button>
+    <button class="filter-btn" data-filter="high">High Capital</button>
+    <button class="filter-btn" data-filter="nigeria">Nigeria-First</button>
+    <button class="filter-btn" data-filter="global">Global</button>
+    <button class="filter-btn" data-filter="tech">Technology</button>
+    <button class="filter-btn" data-filter="infra">Infrastructure</button>
+    <button class="filter-btn" data-filter="finance">Finance</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="section-header">
+    <h2>Business Opportunities</h2>
+    <span class="count-badge" id="count-badge">25 shown</span>
+  </div>
+  <div class="cards-grid" id="cards-grid"></div>
+</main>
+
+<div class="bottom-bar">
+  Strategic Intelligence Report · For disciplined entrepreneurs building to $250M+ · All market data estimates based on public research
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <div class="modal-gold-bar"></div>
+    <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-header">
+      <div class="modal-number" id="m-number"></div>
+      <div class="modal-title" id="m-title"></div>
+      <div class="modal-tags" id="m-tags"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-metrics-grid" id="m-metrics"></div>
+      <div id="m-sections"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const opportunities = [
+  {
+    id: 1,
+    title: "AI-Powered Business Process Outsourcing (BPO) Studio",
+    sector: "tech",
+    capital: "low",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Africa",
+    capitalLabel: "Low (<$10k)",
+    marketSize: "$250B+",
+    timeToScale: "3–5 years",
+    revenuePotential: "$50M–$500M",
+    summary: "Build a next-generation BPO operation that uses AI agents to dramatically reduce headcount while maintaining output quality, targeting Western SME clients who can't afford Fortune 500 BPO pricing.",
+    concept: "A hybrid human-AI outsourcing studio where AI handles 60–80% of tasks (data entry, customer service triage, document processing, lead qualification) and a small team of skilled Nigerians handles edge cases, quality control, and client communication. Clients in the US/UK pay $15–50/hour equivalent but your effective cost per unit of work is a fraction of traditional BPO.",
+    industry: "The global BPO market exceeds $250 billion and is growing at 9% annually. AI is not killing outsourcing — it's restructuring it. Traditional BPOs are slow to adapt. A lean AI-first competitor can capture significant margin arbitrage.",
+    opportunity: "Nigerian labor costs are dramatically lower than Western markets. AI tools (Claude API, GPT-4o) now cost pennies per task. The combination creates a structural cost advantage that is nearly impossible for Western competitors to replicate at scale. Demand for affordable outsourcing among SMEs is accelerating post-COVID as remote work normalized global service delivery.",
+    revenue: "Monthly retainers from SME clients ($2,000–$25,000/month per client). Per-task pricing for volume clients. White-label partnerships with Western agencies. Target: 50 clients at $5,000/month average = $3M ARR within 18 months.",
+    scalability: "Once the workflow templates and AI pipelines are built, each new client costs almost nothing to onboard. Expand into specialized verticals (legal, healthcare, real estate). Eventually build a SaaS platform that sells the AI workflows to other BPO operators globally.",
+    moat: "Proprietary workflow automation built around your client base creates switching costs. Deep vertical expertise (e.g., US real estate transaction processing) creates barriers. Speed advantage — Western competitors cannot replicate your labor cost structure.",
+    entry: "Medium. Getting initial client trust requires proof of work. Compete on speed and price, overdeliver on first 3 clients, then use case studies to scale.",
+    starting: "1) Master 2–3 AI tools deeply (Make.com, Claude API, OpenAI). 2) Find your first client via Upwork or cold email to US SMEs. 3) Build a workflow for one specific task (e.g., invoice processing). 4) Hire 2 QA staff on contract. 5) Productize and replicate.",
+    expansion: "BPO studio → Specialized AI agency → SaaS workflow platform sold globally → Holding company that acquires niche BPO firms across Africa."
+  },
+  {
+    id: 2,
+    title: "Fintech Infrastructure for African SME Lending",
+    sector: "finance",
+    capital: "medium",
+    geo: "nigeria",
+    geoLabel: "Nigeria / West Africa",
+    capitalLabel: "Medium ($50k–$500k)",
+    marketSize: "$330B credit gap",
+    timeToScale: "4–6 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Build the data infrastructure and lending platform that enables risk-appropriate credit to the 40 million+ African SMEs that are systematically underserved by traditional banks.",
+    concept: "A fintech platform that uses alternative data (mobile money transactions, utility payments, social behavior, business activity signals) to build credit scores for SMEs that have no formal financial history. Lend at appropriate risk-adjusted rates or license the scoring infrastructure to banks and microfinance institutions.",
+    industry: "The SME credit gap in Africa is estimated at $330 billion. Less than 20% of African SMEs have access to formal credit. Mobile money penetration (especially M-Pesa, Palmpay, OPay) has created a rich alternative data trail that most lenders haven't learned to use.",
+    opportunity: "Traditional banks rely on collateral and FICO-equivalent scores that most African SMEs cannot satisfy. But the data to assess these businesses exists — it just isn't aggregated or interpreted correctly. First movers who build this infrastructure will have a data moat that compounds over time.",
+    revenue: "Interest income on direct loans (12–36% APR). SaaS licensing fees to banks and MFIs ($5–50k/month). Risk analytics API sold to insurance companies. Data products sold to consumer goods companies targeting SMEs.",
+    scalability: "The platform scales without proportional cost increases. Each loan improves the model. Partner with telcos, fintechs, and distributors to embed the credit product into their platforms. Expand across Nigeria → Ghana → East Africa.",
+    moat: "Proprietary credit models trained on African transaction data. Network effects: more borrowers = better models = lower default rates = more competitive pricing. Regulatory relationships create high barriers for new entrants.",
+    entry: "High. Requires regulatory licensing (CBN approval in Nigeria). Capital to fund initial loan book. Strong technical team.",
+    starting: "1) Hire a risk modeler and compliance expert. 2) Apply for NBFI license. 3) Partner with OPay or Palmpay for transaction data access. 4) Build an MVP scoring model using synthetic data. 5) Run a pilot with 200 SMEs.",
+    expansion: "Lending platform → Credit infrastructure-as-a-service → Insurance partnerships → Pan-African digital bank for businesses → Potential $1B+ valuation at scale."
+  },
+  {
+    id: 3,
+    title: "Vertical AI SaaS for an Underserved Industry",
+    sector: "tech",
+    capital: "low",
+    geo: "global",
+    geoLabel: "USA / Europe / Global",
+    capitalLabel: "Low (<$10k)",
+    marketSize: "$400B+ enterprise software",
+    timeToScale: "3–5 years",
+    revenuePotential: "$50M–$500M",
+    summary: "Pick one specific industry (law, agriculture, construction, healthcare compliance) and build a deeply specialized AI software product that solves a painful workflow problem that horizontal AI tools cannot address.",
+    concept: "Horizontal AI tools (ChatGPT, Copilot) are too generic to replace domain-specific workflows. A vertical AI product trained on industry-specific data, terminology, and regulatory context can become the default tool for that profession. Examples: AI for contract review for African law firms, AI for construction bid estimation, AI for clinic documentation in Nigeria.",
+    industry: "Enterprise SaaS is a $400B+ market. Vertical SaaS commands 3–5x the valuation multiples of horizontal products because of higher retention and lower competition. Every industry has 2–5 workflows that are still done manually or with legacy software.",
+    opportunity: "LLM APIs have dramatically lowered the cost of building AI-powered software. What once required a 50-person ML team now takes a skilled developer and good product sense. The window to capture a vertical before incumbents react is 2–3 years.",
+    revenue: "Subscription SaaS ($99–$999/seat/month). Annual enterprise contracts ($50k–$500k/year). Professional services for onboarding. Data licensing to third parties in the industry.",
+    scalability: "Once the core product is built, each additional customer adds near-zero marginal cost. Expand the product surface area with new modules. Build an API layer that allows third-party integrations. Acquire smaller competitors.",
+    moat: "Proprietary training data from customer usage. Deep integrations with industry-specific systems create switching costs. Brand trust within a professional community is durable.",
+    entry: "Low to medium. Requires domain expertise more than capital. Find a painful problem, build an MVP in 90 days, get 10 paying customers.",
+    starting: "1) Spend 30 days interviewing 50 professionals in a specific industry. 2) Identify the single most painful workflow. 3) Build a narrow MVP that solves that one problem well. 4) Charge $100/month from day 1. 5) Iterate fast.",
+    expansion: "Vertical SaaS → Industry data platform → Adjacent verticals → Suite of tools → Acquisition target for large enterprise software companies (SAP, Oracle, Salesforce) at 10–20x ARR multiples."
+  },
+  {
+    id: 4,
+    title: "Cold Chain Logistics Infrastructure",
+    sector: "infra",
+    capital: "high",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Sub-Saharan Africa",
+    capitalLabel: "High ($500k–$5M)",
+    marketSize: "$300B+ globally",
+    timeToScale: "5–8 years",
+    revenuePotential: "$100M–$500M",
+    summary: "Build the refrigerated storage, transport, and distribution infrastructure that Africa's agriculture and pharmaceutical sectors desperately need but which barely exists at scale.",
+    concept: "Nigeria loses an estimated 40–50% of its agricultural produce post-harvest due to lack of refrigeration infrastructure. Pharmaceuticals and vaccines require cold chains that don't exist in most of the country. Build a network of solar-powered cold storage hubs, refrigerated transport, and a digital platform that food producers and pharma companies can book.",
+    industry: "Africa's cold chain market is projected to grow from $2B to $10B+ by 2030. Agricultural losses from inadequate cold storage cost sub-Saharan Africa $48 billion annually. The pharma sector has surging demand driven by vaccine distribution needs.",
+    opportunity: "This is a physical infrastructure gap, not a technology gap. The business that builds this network first will capture territory that is extremely difficult to replicate. Solar power economics now make off-grid cold storage viable in areas with no reliable electricity.",
+    revenue: "Storage rental fees (per pallet, per day). Refrigerated transport contracts. SaaS platform subscriptions for inventory tracking. Long-term contracts with food processors, exporters, and pharma distributors.",
+    scalability: "Start in Lagos or Kano with 1–2 hub facilities. Expand to regional hubs. Eventually cover all major agricultural zones. Create a franchise model for last-mile cold chain access points.",
+    moat: "Physical infrastructure creates high barriers. First-mover geographic coverage is nearly irreplaceable. Long-term contracts lock in anchor tenants. Brand trust in a safety-critical sector is durable.",
+    entry: "Very high. Requires capital, permits, real estate, and technical expertise in refrigeration engineering. But the barriers are exactly what make this attractive.",
+    starting: "1) Conduct feasibility study in 3 locations. 2) Secure initial funding (DFI grants, private equity). 3) Partner with an agricultural cooperative or pharma distributor as anchor tenant. 4) Build first hub. 5) Prove unit economics.",
+    expansion: "Cold storage network → Temperature-controlled logistics → Agricultural marketplace → Processing facilities → Pan-African food supply chain company."
+  },
+  {
+    id: 5,
+    title: "Renewable Energy Microgrids for Commercial & Industrial Clients",
+    sector: "infra",
+    capital: "high",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Africa",
+    capitalLabel: "High ($500k–$5M)",
+    marketSize: "$20B+ C&I solar in Africa",
+    timeToScale: "5–8 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Build, own, and operate solar-plus-battery microgrids for large commercial and industrial clients (factories, hospitals, shopping malls, universities) who spend enormous sums on diesel generators.",
+    concept: "Nigerian businesses collectively spend over $14 billion annually on diesel generators due to unreliable grid power. A commercial solar-plus-storage system can reduce their energy costs by 40–60% with no upfront capital through a Power Purchase Agreement (PPA) model — the client pays per kilowatt-hour consumed, the developer finances and owns the system.",
+    industry: "The commercial and industrial (C&I) solar market in Africa is one of the fastest-growing energy investment categories globally. Development finance institutions (DFI) like IFC, OPIC, and AfDB are actively seeking to fund these projects. The business model is proven in South Africa, Kenya, and Morocco.",
+    opportunity: "The PPA model removes the primary barrier for clients (capital cost). The developer captures long-term recurring cash flows from assets that last 25+ years. Rising diesel prices and falling solar costs make the economics better every year.",
+    revenue: "PPA revenue: client pays $0.12–0.18/kWh versus $0.35–0.50/kWh for diesel generation. Develop 10MW of capacity at $0.15/kWh average → $2–3M/year in recurring revenue from a single portfolio. Scale to 100MW → $20–30M/year.",
+    scalability: "Each project proves the model and makes the next DFI financing round easier. Build a portfolio of 10–20 projects, then securitize the cash flows. Expand into East Africa and francophone West Africa.",
+    moat: "Long-term PPA contracts (10–20 years) lock in revenue. Relationships with DFIs create preferential access to debt capital. Technical expertise and track record are barriers. Land rights at strategic locations.",
+    entry: "High. Requires project development expertise, DFI relationships, and initial project equity (typically 20–30% of project cost).",
+    starting: "1) Hire a project developer with solar PPA experience. 2) Identify anchor client (large factory or hospital). 3) Commission feasibility study. 4) Approach IFC or AfDB for debt financing. 5) Execute first project as proof of concept.",
+    expansion: "C&I solar portfolio → Grid-scale generation → Energy storage development → Carbon credit monetization → IPO or acquisition by international energy company."
+  },
+  {
+    id: 6,
+    title: "Data Center and Cloud Infrastructure in Africa",
+    sector: "tech",
+    capital: "high",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Africa",
+    capitalLabel: "High ($2M–$5M+)",
+    marketSize: "$15B+ by 2030",
+    timeToScale: "5–10 years",
+    revenuePotential: "$500M–$5B",
+    summary: "Develop and operate carrier-neutral data centers in African cities, providing colocation, cloud hosting, and connectivity services to the rapidly growing digital economy.",
+    concept: "Africa's internet economy is growing at 20%+ annually but is severely constrained by a lack of local data center infrastructure. Most African internet traffic is routed through Europe, creating latency, sovereignty, and cost problems. Local data centers solve all three. Demand from hyperscalers (AWS, Azure, Google Cloud), telcos, banks, and governments is surging.",
+    industry: "Africa's data center market is projected to grow from $3B to $15B+ by 2030. Nigeria, South Africa, Kenya, and Egypt are the primary markets. Global hyperscalers are spending billions to establish African infrastructure and need local data center partners.",
+    opportunity: "Google, Microsoft, and AWS have all made major Africa investments but need on-the-ground local partners. A locally-rooted, well-capitalized data center operator can serve as the hyperscaler anchor and build a carrier-neutral platform that captures the entire market.",
+    revenue: "Colocation fees: monthly recurring revenue per rack/cabinet ($500–$5,000/month). Managed services. Power and cooling charges. Connectivity fees. Long-term contracts with telcos and government agencies.",
+    scalability: "Data centers are natural monopolies in their geographies. Expand from Lagos to Abuja to Kano. Enter regional markets. Build interconnects with submarine cable landing stations. Attract hyperscaler anchor tenants.",
+    moat: "Physical infrastructure cannot be replicated quickly. Carrier-neutral status attracts all operators. Hyperscaler anchor tenants de-risk the business and create prestige. Regulatory relationships for spectrum and permits.",
+    entry: "Extremely high. Requires $5M+ for first facility, power infrastructure, and cooling systems. However, development finance institutions actively fund this sector.",
+    starting: "1) Study successful African data center operators (MainOne, Rack Centre, WIOCC). 2) Secure land and power agreement. 3) Engage DFI investors (IFC, CDC/BII). 4) Secure at least one anchor tenant before breaking ground.",
+    expansion: "Single data center → Multi-site network → Internet exchange point → Subsea cable investor → Pan-African cloud infrastructure platform."
+  },
+  {
+    id: 7,
+    title: "Precision Agriculture Technology Platform",
+    sector: "tech",
+    capital: "medium",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Sub-Saharan Africa",
+    capitalLabel: "Medium ($100k–$500k)",
+    marketSize: "$20B+ African agri-tech",
+    timeToScale: "4–7 years",
+    revenuePotential: "$100M–$500M",
+    summary: "Build a platform combining satellite imagery, soil sensors, weather data, and AI to give smallholder and commercial farmers actionable intelligence that increases yields and reduces input waste.",
+    concept: "Over 70% of Nigeria's agricultural output comes from smallholder farmers who make planting, irrigation, and pesticide decisions based on intuition rather than data. A platform that provides low-cost, satellite-based crop monitoring, AI-driven planting recommendations, and market price intelligence can dramatically increase farm profitability and command a recurring subscription or yield-sharing revenue model.",
+    industry: "African agricultural productivity is 2–5x below its potential. The market for precision agriculture tools is expected to exceed $20 billion globally. Penetration in Africa remains below 2%, creating an enormous greenfield opportunity.",
+    opportunity: "Planet Labs, Sentinel, and other satellites now provide high-resolution imagery at near-zero marginal cost. AI can process this imagery and generate field-level insights without on-farm hardware. The smartphone penetration among African farmers is rising rapidly, enabling mobile-first delivery.",
+    revenue: "Per-acre subscription fees ($5–20/acre/season). Input supplier distribution commissions. Market linkage transaction fees. Government and NGO data contracts. Crop insurance underwriting partnerships.",
+    scalability: "Software platform scales infinitely. Data from millions of acres improves AI models creating compounding advantages. Expand from Nigeria to Ghana, Kenya, Ethiopia. Build a pan-African agricultural data company.",
+    moat: "Proprietary dataset of African farm performance data is irreplaceable. AI models trained on local crop varieties and soil types. Network effects as farmers, buyers, and input suppliers all join the same platform.",
+    entry: "Medium. Requires technical team, satellite data partnerships, and significant farmer acquisition investment.",
+    starting: "1) Partner with a state government agricultural extension service. 2) Run a 500-farm pilot in one state. 3) Prove yield improvement with before/after data. 4) Use results to attract impact investors and agricultural development grants.",
+    expansion: "Farm intelligence platform → Input distribution → Market linkage marketplace → Crop insurance enablement → Agricultural data company at the center of African food systems."
+  },
+  {
+    id: 8,
+    title: "Specialized Staffing & Talent Marketplace for Global Tech Companies",
+    sector: "tech",
+    capital: "low",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Africa-first, Global clients",
+    capitalLabel: "Low (<$10k)",
+    marketSize: "$500B+ staffing industry",
+    timeToScale: "2–4 years",
+    revenuePotential: "$50M–$200M",
+    summary: "Build the most trusted sourcing, vetting, and placement platform for African software engineers, data scientists, and AI specialists being hired by European and American companies.",
+    concept: "The global demand for software engineers vastly exceeds supply in Western markets. Nigeria produces over 10,000 engineering graduates annually, and the country has a rapidly growing developer community. A specialized recruiter/talent marketplace that handles sourcing, technical vetting, visa/employer-of-record logistics, and ongoing support captures a percentage of every placement as a recurring fee.",
+    industry: "The global staffing industry exceeds $500 billion. The segment focused on remote/distributed engineering talent is the fastest-growing subsector. Companies like Remote.com, Deel, and Andela have proven the model at scale — Andela was valued at $1.5B.",
+    opportunity: "Most Western companies don't know how to find, evaluate, or hire Nigerian talent. A trusted intermediary that handles the entire process — including legal compliance, payroll, and cultural onboarding — commands significant margin. African developers are paid less than Western peers for equivalent skills, making the value proposition to employers compelling.",
+    revenue: "Placement fees (15–25% of first-year salary). Employer-of-record recurring margin ($200–500/employee/month). Training and upskilling fees. Corporate partnership fees for talent pipeline access.",
+    scalability: "Build proprietary assessment infrastructure to vet candidates at scale. Expand from Nigeria to Ghana, Kenya, South Africa. Diversify from software engineering into data science, cybersecurity, product management.",
+    moat: "Reputation and trust with both clients and candidates is the primary moat. Proprietary vetting assessments. Alumni network creates a flywheel — placed candidates refer others and become hiring managers who return as clients.",
+    entry: "Low. Requires networking, a website, and deep relationships in both the Nigerian tech community and Western startup ecosystem.",
+    starting: "1) Make a shortlist of 50 verified, strong Nigerian engineers. 2) Cold-email 100 US/UK startups with specific profiles. 3) Do first 3 placements at reduced fee to prove the product. 4) Collect testimonials. 5) Build out vetting system.",
+    expansion: "Talent marketplace → Employer of record platform → Coding bootcamp/upskilling → Pan-African tech talent company → Potential acquisition by Deel, Remote, or Andela."
+  },
+  {
+    id: 9,
+    title: "Carbon Credit Project Development in Sub-Saharan Africa",
+    sector: "finance",
+    capital: "medium",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Sub-Saharan Africa",
+    capitalLabel: "Medium ($50k–$500k)",
+    marketSize: "$50B+ by 2030",
+    timeToScale: "3–6 years",
+    revenuePotential: "$50M–$500M",
+    summary: "Develop, register, and sell voluntary carbon credits from African reforestation, avoided deforestation, cookstove, and agriculture projects to Western corporations with net-zero commitments.",
+    concept: "Global corporations have made $3 trillion+ in net-zero commitments and need verified carbon offsets to meet them. Africa has enormous carbon sequestration potential through reforestation and land-use change but lacks sophisticated project developers who can navigate the complex MRV (monitoring, reporting, verification) and registry processes. A developer who builds and sells a portfolio of African carbon projects commands enormous fees.",
+    industry: "The voluntary carbon market is projected to grow from $2B to $50B+ by 2030. African projects are undersupplied relative to demand. High-quality African credits trade at a premium due to biodiversity co-benefits.",
+    opportunity: "The supply-demand gap in high-quality carbon credits is severe. Western corporate buyers are actively seeking African projects. The technical knowledge to develop and verify projects is scarce in Africa, creating a first-mover advantage for developers who master the process.",
+    revenue: "Carbon credit sales ($10–40/tonne depending on project type). Project development fees charged to landowners/governments. Management and monitoring contracts. Upfront financing from corporate buyers via offtake agreements.",
+    scalability: "Each successful project creates a template for the next. Build a portfolio of 10–20 projects. Establish a carbon advisory practice for African governments. Create a fund structure to attract institutional capital.",
+    moat: "Relationships with community landowners and governments are irreplaceable. Registry expertise and methodology knowledge take years to develop. Track record of delivering verified credits is a trust signal that compounds.",
+    entry: "Medium. Requires deep knowledge of carbon markets (Verra, Gold Standard methodologies), legal capacity, and community relations expertise.",
+    starting: "1) Get certified in Verra VCS methodology. 2) Identify 2–3 potential project sites (reforestation or cookstoves). 3) Sign MOUs with community leaders. 4) Engage a carbon advisory firm for initial MRV support. 5) Sell forward credits to a corporate buyer.",
+    expansion: "Project developer → Carbon fund manager → African carbon exchange → Government advisory → Natural capital investment firm managing billions in African environmental assets."
+  },
+  {
+    id: 10,
+    title: "Defense Technology and Surveillance Systems for African Governments",
+    sector: "infra",
+    capital: "medium",
+    geo: "global",
+    geoLabel: "Nigeria / Africa (government contracts)",
+    capitalLabel: "Medium ($100k–$1M)",
+    marketSize: "$20B+ African defense tech",
+    timeToScale: "4–7 years",
+    revenuePotential: "$100M–$500M",
+    summary: "Build a technology company supplying drone surveillance, border monitoring, cybersecurity, and intelligence systems to African governments facing significant security challenges.",
+    concept: "African governments collectively spend over $40 billion on defense annually but receive very little advanced technology for this spend. A company that provides drone surveillance platforms, command-and-control software, border monitoring systems, and cybersecurity tools — at prices significantly below Western defense contractors — can win substantial government contracts.",
+    industry: "The African defense technology market is growing at 7% annually. Insurgency, border threats, and maritime piracy create persistent demand for surveillance and intelligence technology. Governments are shifting budgets toward technology-enabled solutions.",
+    opportunity: "Western defense contractors (Lockheed, Raytheon, Leonardo) are too expensive and have long procurement cycles. Chinese suppliers are politically sensitive in many markets. A locally-rooted African defense tech company with appropriate pricing and cultural understanding is positioned to fill a genuine gap.",
+    revenue: "Government contracts (multi-year, $5M–$100M+ each). Hardware sales and maintenance contracts. SaaS subscriptions for software platforms. Training and integration services.",
+    scalability: "Win reference contracts in 1–2 countries, use them to bid regionally. Build proprietary technology stack to avoid dependence on foreign components. Expand into maritime security and cyber intelligence.",
+    moat: "Government relationships and security clearances are extremely difficult to replicate. Long contract terms create revenue visibility. Integration into national security infrastructure creates switching costs that are nearly absolute.",
+    entry: "High. Requires navigating government procurement processes, building relationships with decision-makers, and managing export control compliance.",
+    starting: "1) Focus on a specific niche (drone surveillance or cybersecurity). 2) Partner with a licensed defense technology company. 3) Target state-level security contracts first. 4) Build a track record through small contracts.",
+    expansion: "National security contracts → Regional expansion → Satellite intelligence services → Acquisition of smaller defense tech firms → IPO or acquisition by global defense contractor."
+  },
+  {
+    id: 11,
+    title: "Real Estate Private Equity and Development",
+    sector: "infra",
+    capital: "medium",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Anglophone Africa",
+    capitalLabel: "Medium ($500k–$5M)",
+    marketSize: "$90B+ Nigerian real estate",
+    timeToScale: "5–10 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Build a real estate investment and development company that identifies undervalued land, develops high-quality residential or commercial properties, and holds or sells assets at substantial appreciation.",
+    concept: "Nigeria's housing deficit exceeds 17 million units. Urban migration is accelerating. Land prices in Lagos, Abuja, and Port Harcourt have appreciated 10–30% annually over the past decade. A developer with access to capital, good land sourcing, and quality construction management can generate exceptional returns through buy-develop-hold or buy-develop-sell strategies.",
+    industry: "Nigerian real estate is a $90B+ industry with persistent structural demand. The middle class is expanding rapidly. Dollar-denominated properties in high-demand locations preserve value against naira devaluation.",
+    opportunity: "Currency arbitrage: properties priced in USD or pegged to USD while construction costs are partly in naira creates structural inflation protection. Infrastructure improvements (Lekki-Epe expressway, rail) create value uplift in specific corridors that sophisticated investors can anticipate.",
+    revenue: "Outright property sales (40–100% margins on development cost). Rental income (yields of 6–12% in prime areas). Property management fees. REIT structure for institutional investors.",
+    scalability: "Recycle capital from completed projects into larger developments. Build a real estate private equity fund. Develop expertise in a specific asset class (student housing, affordable housing, logistics warehouses).",
+    moat: "Land ownership is the primary moat. Local market knowledge, government relationships, and reliable contractor networks are difficult to replicate. Track record with high-net-worth investors creates repeat capital access.",
+    entry: "High. Requires capital, legal expertise, and construction management capability. Land titling in Nigeria is complex.",
+    starting: "1) Start as a broker/deal sourcer to learn the market without capital at risk. 2) Joint-venture on first deal with an experienced developer. 3) Build investor relationships. 4) Develop first independent project.",
+    expansion: "Property development → Real estate private equity fund → REIT → Pan-African real estate platform → Integrated construction and development conglomerate."
+  },
+  {
+    id: 12,
+    title: "Logistics Technology Platform for Intra-African Trade",
+    sector: "infra",
+    capital: "medium",
+    geo: "nigeria",
+    geoLabel: "West Africa / Continental Africa",
+    capitalLabel: "Medium ($100k–$1M)",
+    marketSize: "$180B+ African trade logistics",
+    timeToScale: "4–7 years",
+    revenuePotential: "$100M–$500M",
+    summary: "Build the technology layer that enables manufacturers, exporters, and importers to move goods across African borders efficiently — providing freight booking, customs clearance, tracking, and payment in one platform.",
+    concept: "The African Continental Free Trade Area (AfCFTA) is creating unprecedented demand for intra-African trade infrastructure. A platform that digitizes the freight booking, documentation, customs compliance, tracking, and payment process for cross-border shipments can capture significant transaction value. Think Flexport, but built for African complexity.",
+    industry: "Intra-African trade is less than 16% of total African trade versus 60%+ in Europe — primarily because of logistics and documentation barriers. AfCFTA is designed to address this, creating a $3 trillion+ market opportunity over the next decade.",
+    opportunity: "Most freight in Africa is still booked via phone calls and WhatsApp. There is no dominant digital logistics platform for intra-African trade. The regulatory environment is improving (AfCFTA). The smartphone penetration among freight operators is rising rapidly.",
+    revenue: "Transaction fees on freight bookings (2–5% of freight value). Customs clearance service fees. SaaS subscriptions for logistics operators. Trade finance interest income.",
+    scalability: "Network effects: more shippers attract more carriers; more carriers create better pricing for shippers. Expand from West Africa to East and Southern Africa. Add trade finance, insurance, and warehouse products.",
+    moat: "Data on African trade routes, carrier performance, and pricing creates a proprietary intelligence layer. Regulatory relationships in multiple countries create barriers. Network effects between shippers and carriers.",
+    entry: "Medium. Requires regulatory expertise, carrier partnerships, and the trust of both shippers and government customs agencies.",
+    starting: "1) Focus on one high-volume trade corridor (Lagos–Accra or Lagos–Abidjan). 2) Digitize the booking and tracking process for 10 freight operators. 3) Prove speed and cost improvements. 4) Expand to customs clearance.",
+    expansion: "Freight booking platform → Trade finance → AfCFTA compliance software → Pan-African logistics company → Infrastructure and fleet ownership."
+  },
+  {
+    id: 13,
+    title: "Modular Manufacturing for Import-Substitution Products",
+    sector: "infra",
+    capital: "high",
+    geo: "nigeria",
+    geoLabel: "Nigeria",
+    capitalLabel: "High ($1M–$5M)",
+    marketSize: "$100B+ import substitution opportunity",
+    timeToScale: "5–10 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Establish a light manufacturing facility producing goods that Nigeria imports at significant cost — packaging, construction materials, food processing, or pharmaceutical inputs — and capture the margin currently flowing overseas.",
+    concept: "Nigeria spends over $20 billion annually importing goods that could be manufactured locally. High tariffs and the CBN's foreign exchange restrictions have made local manufacturing increasingly attractive. A well-managed light manufacturing operation targeting fast-moving consumer goods, packaging materials, or construction inputs can compete on price and supply reliability.",
+    industry: "Nigeria's manufacturing sector is less than 10% of GDP versus 25–30% for comparable emerging markets. Government policies strongly favor import substitution. The market is enormous and structurally underserved.",
+    opportunity: "Currency devaluation has made imports expensive, narrowing the historical cost advantage of imported goods. Government incentives (Pioneer Status, import duty waivers on machinery) improve manufacturing economics. Infrastructure gaps mean well-managed local production has reliability advantages over import supply chains.",
+    revenue: "Product sales to distributors and retailers. Contract manufacturing for brands. Export to neighboring ECOWAS markets. Government contracts.",
+    scalability: "Master one product category, then expand into adjacent inputs. Build distribution relationships that can carry multiple product lines. Create a brand in the category.",
+    moat: "Local supply reliability is a moat when import chains are disrupted. Government relationships for Pioneer Status and forex allocation. Proprietary manufacturing processes.",
+    entry: "High. Requires capital for machinery, plant, permits, and working capital. But government incentives significantly reduce effective startup cost.",
+    starting: "1) Identify a specific category with clear import substitution economics. 2) Engage NAFDAC or appropriate regulatory body. 3) Apply for Pioneer Status (5-year tax holiday). 4) Source equipment (secondhand from Europe or new from China). 5) Secure distribution partnerships before production begins.",
+    expansion: "Single product manufacturing → Multi-product facility → Branded consumer goods company → Industrial group → Diversified holding company."
+  },
+  {
+    id: 14,
+    title: "Health Insurance Technology for Informal Sector Workers",
+    sector: "finance",
+    capital: "medium",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Africa",
+    capitalLabel: "Medium ($100k–$1M)",
+    marketSize: "$10B+ African health insurance gap",
+    timeToScale: "4–7 years",
+    revenuePotential: "$50M–$500M",
+    summary: "Build a micro-health insurance platform that serves the 85% of Nigerians working in the informal economy — collecting small premiums via mobile money and paying claims through a cashless hospital network.",
+    concept: "Only 3–5% of Nigerians have any form of health insurance. Healthcare expenditure is 95%+ out-of-pocket. A platform that aggregates informal workers (market associations, motorcycle riders, market women) into risk pools, charges affordable weekly/monthly premiums via USSD or mobile money, and enables cashless treatment at a network of hospitals and clinics can unlock a massive underserved market.",
+    industry: "The African health insurance market has enormous untapped potential. Leapfrog Investments and other impact-focused VCs have invested heavily in this space. M-TIBA (Kenya), Reliance Health (Nigeria), and similar companies have demonstrated proof of concept.",
+    opportunity: "Informal sector associations provide natural aggregation points that eliminate individual customer acquisition costs. Mobile money infrastructure enables micro-premium collection. The NHIA (National Health Insurance Authority) act in Nigeria creates regulatory tailwind.",
+    revenue: "Premium income (weekly/monthly micro-premiums). Re-insurance margin. Hospital network membership fees. Employer group health products. Data and analytics services to pharmaceutical companies.",
+    scalability: "Aggregate via trade associations (each association = thousands of members). Expand to multiple states. Add life insurance, savings, and credit products to the same platform.",
+    moat: "Association partnerships create aggregated, captive member pools. Hospital network relationships are difficult to replicate. Actuarial data on African informal sector health risks is proprietary and valuable.",
+    entry: "Medium. Requires insurance license or underwriting partnership, hospital network development, and mobile money integrations.",
+    starting: "1) Partner with an underwriter rather than getting a license initially. 2) Sign up 5 market associations (total 5,000 members). 3) Sign 20 hospitals/clinics into the network. 4) Run a 6-month pilot with NHIA oversight.",
+    expansion: "Health insurance platform → HMO license → Digital health records → Pan-African health financial services company."
+  },
+  {
+    id: 15,
+    title: "AI-Powered Legal Technology for Emerging Markets",
+    sector: "tech",
+    capital: "low",
+    geo: "global",
+    geoLabel: "Nigeria / Global",
+    capitalLabel: "Low (<$50k)",
+    marketSize: "$1T+ legal services globally",
+    timeToScale: "3–5 years",
+    revenuePotential: "$50M–$500M",
+    summary: "Build AI tools that automate legal document drafting, contract review, regulatory compliance, and legal research specifically for African legal frameworks — an underserved space that global legal tech companies have ignored.",
+    concept: "Nigeria has over 100,000 registered lawyers and hundreds of thousands of businesses that need legal services but cannot afford traditional law firm rates. An AI platform trained on Nigerian law (CAMA 2020, Land Use Act, CBN regulations, FIRS guidance) that can draft contracts, review documents, and provide regulatory guidance at a fraction of traditional cost disrupts a market that global players (Clio, Ironclad, Harvey) have not targeted.",
+    industry: "Global legal technology is a $30B+ market growing at 14% annually. Africa has been almost completely ignored by legal tech companies despite having massive demand. Nigeria's CAMA 2020 reforms created a wave of business formation activity.",
+    opportunity: "Regulatory complexity is increasing, not decreasing. Businesses need legal support but cannot afford lawyers for every document. AI trained on African law creates a product that no foreign competitor can easily replicate due to the specialized training data.",
+    revenue: "SaaS subscriptions ($50–500/month for businesses). Pay-per-document model. Enterprise contracts with law firms using the platform for back-office work. Government and NGO licensing.",
+    scalability: "Expand from Nigeria to Ghana, Kenya, South Africa. Add languages (Swahili, French for francophone Africa). Build an API that law firms integrate into their workflows.",
+    moat: "Training data on African legal documents is proprietary. Early adoption by law firms creates switching costs. Government regulatory relationships validate the platform.",
+    entry: "Low to medium. Requires deep legal expertise, AI engineering capability, and access to legal training data.",
+    starting: "1) Partner with a Nigerian law firm to access documents and validate output. 2) Train a specialized model on Nigerian legal texts. 3) Launch contract drafting tool for SMEs at $50/month. 4) Sell to law firms for associate-level work automation.",
+    expansion: "Legal SaaS → Legal marketplace connecting clients and lawyers → Compliance automation for regulated industries → Pan-African legal tech platform."
+  },
+  {
+    id: 16,
+    title: "Private Equity Rollup of Fragmented Service Businesses",
+    sector: "finance",
+    capital: "medium",
+    geo: "nigeria",
+    geoLabel: "Nigeria",
+    capitalLabel: "Medium ($500k–$5M)",
+    marketSize: "Varies by sector",
+    timeToScale: "5–10 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Use private equity techniques to identify fragmented, owner-operated service businesses (security, cleaning, waste management, facilities management), acquire controlling stakes, professionalize operations, and build an integrated services conglomerate.",
+    concept: "Many Nigerian service industries are dominated by hundreds of small, unsophisticated operators. A well-capitalized buyer with management depth can acquire these businesses at 2–4x earnings, centralize back-office functions, implement technology and SOPs, and create a platform worth 8–12x earnings to institutional investors or strategic acquirers. Classic private equity rollup playbook applied to African markets.",
+    industry: "Fragmented service industries in Nigeria include security services, cleaning and facilities management, waste management, mechanical services, and catering. These markets are collectively worth tens of billions but have zero dominant players.",
+    opportunity: "Owner-operators in these markets have no clear exit path, are hungry for capital, and are often open to management partnerships. Valuation multiples are extremely low by global standards. A disciplined acquirer can create enormous value through aggregation alone.",
+    revenue: "Earnings from acquired businesses (post-operational improvement). Management fees. Advisory fees on transactions. Eventual sale of the consolidated platform at a significant multiple expansion.",
+    scalability: "Acquire 3–5 businesses to prove the rollup thesis. Raise a formal private equity fund. Execute 15–20 acquisitions. Build the largest professional services company in Nigeria.",
+    moat: "Scale creates procurement advantages (cheaper insurance, equipment, uniforms). Brand premium for clients who want one reliable partner. Management talent depth that small operators cannot afford individually.",
+    entry: "Medium. Requires some capital for first acquisition, deal structuring expertise, and operational management capability.",
+    starting: "1) Identify the target sector (security is a good starting point). 2) Approach 20 owner-operators to understand their businesses and motivations. 3) Execute first acquisition with seller-financed component. 4) Standardize operations and prove EBITDA improvement. 5) Raise a fund.",
+    expansion: "Service rollup → Private equity fund → Multi-sector holding company → IPO on NGX or London AIM → Diversified conglomerate."
+  },
+  {
+    id: 17,
+    title: "Specialized Mining and Critical Minerals Development",
+    sector: "infra",
+    capital: "high",
+    geo: "nigeria",
+    geoLabel: "Nigeria / West Africa",
+    capitalLabel: "High ($1M–$5M)",
+    marketSize: "$300B+ critical minerals globally",
+    timeToScale: "5–10 years",
+    revenuePotential: "$100M–$2B",
+    summary: "Identify, acquire, and develop Nigerian mineral deposits — lithium, gold, tin, tantalum, iron ore — that are strategically critical to global EV and technology supply chains and command premium pricing.",
+    concept: "Nigeria has significant deposits of lithium, gold, tin, columbite-tantalite, iron ore, and other minerals that are largely underdeveloped. Global demand for critical minerals (especially lithium and tantalum) is surging due to EV battery manufacturing. A well-structured mining company can acquire prospecting licenses, conduct exploration, and develop producing mines — or sell proven reserves to major mining companies.",
+    industry: "Critical minerals are among the most strategically important commodities in the world. The EV transition requires 4–6x current lithium production. Tantalum is essential for electronics. Nigeria's mineral endowment is vastly underexplored.",
+    opportunity: "Nigerian prospecting licenses are available at very low cost. The Ministry of Mines and Steel Development has been actively promoting mining investment. Global mining majors (Anglo American, Glencore, Lithium Americas) are desperate for new sources of supply in friendly jurisdictions.",
+    revenue: "Mine production revenue (commodity sales). Royalties from mining rights licenses sold to majors. Joint venture equity in larger deposits. Asset appreciation of proven reserves.",
+    scalability: "Prove up a small operation, use it to attract joint venture partners with capital and technical expertise. Build a portfolio of mineral assets across Nigeria. Expand to Ghana and Mali.",
+    moat: "Mineral rights ownership is an absolute moat. First-mover in specific geological regions. Technical and regulatory expertise. Relationships with global offtakers.",
+    entry: "High. Requires geological expertise, regulatory navigation, and significant capital for exploration.",
+    starting: "1) Hire a geologist with Nigerian mining experience. 2) Review existing geological surveys from the Ministry of Mines. 3) Identify 3–5 prospective areas. 4) Apply for prospecting licenses. 5) Conduct targeted exploration in highest-potential areas.",
+    expansion: "Prospecting → Proven reserves → Production mine → Mining holding company → Regional critical minerals platform."
+  },
+  {
+    id: 18,
+    title: "Digital Media and Creator Economy Infrastructure",
+    sector: "tech",
+    capital: "low",
+    geo: "global",
+    geoLabel: "Nigeria / Global",
+    capitalLabel: "Low (<$10k)",
+    marketSize: "$500B+ creator economy",
+    timeToScale: "3–6 years",
+    revenuePotential: "$50M–$500M",
+    summary: "Build the media company and creator monetization infrastructure that captures the enormous commercial value of African pop culture — Afrobeats, Nollywood, comedy, fashion — and distributes it globally.",
+    concept: "Afrobeats alone generates billions in global streams annually. African creators have massive audiences but minimal monetization infrastructure. A company that provides talent representation, content production, brand deal brokerage, live event production, and IP licensing for African creators can capture significant commission revenue from a market that is structurally underrepresented by global intermediaries.",
+    industry: "The global creator economy is worth over $500 billion. African creative content is among the fastest-growing globally (Burna Boy, Wizkid, Patoranking have proven the demand). Streaming platforms are desperately seeking African content.",
+    opportunity: "Major talent agencies (CAA, WME) largely ignore African creators. Major labels are just beginning to pay attention. A locally-rooted company that understands the culture and has deep creator relationships can build a media empire that exports African culture to the world.",
+    revenue: "Talent management commissions (15–20% of creator earnings). Content production and licensing. Brand deal facilitation. Event production and ticketing. Streaming deal advances. Merchandise.",
+    scalability: "Start with 10–20 signed creators. Build a track record of successful deals. Raise capital to fund content production. Create proprietary distribution channels. Launch a streaming platform or OTT channel.",
+    moat: "Creator relationships are highly personal and durable. Library of owned IP compounds in value over time. First-mover brand among African creators creates network effects.",
+    entry: "Low. Requires networks, hustle, and cultural intelligence more than capital.",
+    starting: "1) Sign 3–5 mid-tier creators with high upside on exclusive management contracts. 2) Pitch their content aggressively to streaming platforms and brands. 3) Execute a major deal that proves your value. 4) Use proceeds to fund content production.",
+    expansion: "Talent agency → Content production studio → IP library → African streaming platform → Global media and entertainment company."
+  },
+  {
+    id: 19,
+    title: "Waste Management and Recycling Infrastructure",
+    sector: "infra",
+    capital: "high",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Africa",
+    capitalLabel: "High ($500k–$3M)",
+    marketSize: "$10B+ African waste management",
+    timeToScale: "5–8 years",
+    revenuePotential: "$100M–$500M",
+    summary: "Build a vertically integrated waste collection, sorting, processing, and recycling business that monetizes both the service fees from municipalities/estates and the sale of recovered materials to global commodity markets.",
+    concept: "Nigerian cities collectively generate millions of tonnes of waste annually with essentially no formal recycling infrastructure. PET plastic, aluminum, paper, and electronic waste all have significant commodity value on global markets. A company that provides reliable waste collection services and then monetizes recovered materials has two revenue streams: a recurring service business and a commodity trading business.",
+    industry: "Africa's waste management market is growing at 6–7% annually. Plastic recycling is in extreme global demand as major consumer goods companies have made recycled content pledges. E-waste contains significant precious metal value (gold, palladium).",
+    opportunity: "Most Nigerian recycling is done by informal aggregators with no technology or scale. A formal business can aggregate these informal workers, standardize collection, and access global commodity buyers who won't engage with informal supply chains.",
+    revenue: "Municipal and estate waste collection contracts. Sale of sorted recyclable materials (PET: $200–400/tonne, aluminum: $1,500/tonne). Carbon credits for diverting waste from landfill. Extended Producer Responsibility (EPR) fees from FMCG companies.",
+    scalability: "Start in one city, prove the model, expand to additional cities. Build processing plants that can handle higher material volumes. Create a national recycling infrastructure company.",
+    moat: "Municipal contracts are long-term and exclusive. Processing infrastructure creates barriers. Commodity buyer relationships at scale are not easily replicated. Informal sector aggregation network.",
+    entry: "High. Requires capital for collection infrastructure, processing equipment, and regulatory approvals.",
+    starting: "1) Focus on one material stream (PET plastic). 2) Secure a collection contract with a large estate or industrial estate. 3) Partner with an informal recycling aggregator network. 4) Identify a verified commodity buyer. 5) Prove unit economics.",
+    expansion: "Waste collection → Multi-material processing → Circular economy platform → Carbon credit monetization → Pan-African environmental services company."
+  },
+  {
+    id: 20,
+    title: "Supply Chain Finance and Trade Finance Platform",
+    sector: "finance",
+    capital: "medium",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Africa",
+    capitalLabel: "Medium ($500k–$5M)",
+    marketSize: "$5T+ global trade finance gap",
+    timeToScale: "4–7 years",
+    revenuePotential: "$100M–$500M",
+    summary: "Build a platform that provides working capital financing to SMEs within corporate supply chains — enabling large companies to extend payment terms while ensuring their suppliers get paid immediately, funded by institutional capital at a profit.",
+    concept: "Reverse factoring/supply chain finance: a large corporate (Dangote, MTN, Nestle Nigeria) has hundreds of suppliers who must wait 60–90 days for payment. A platform that buys those invoices immediately (at a slight discount), gives the supplier cash now, and collects from the corporate at payment date earns a spread while solving a critical liquidity problem for SMEs.",
+    industry: "The global trade finance gap exceeds $5 trillion, with Africa disproportionately underserved. African SMEs pay 20–40% annual effective rates for working capital financing when it's available at all. Supply chain finance offers rates of 8–18% while carrying very low risk (invoices are backed by creditworthy corporates).",
+    opportunity: "The risk is effectively that of the large corporate (Dangote, MTN) not the SME, so default rates are extremely low. Nigerian banks do not offer this product at scale. The market is entirely open.",
+    revenue: "Discount fee on purchased invoices (0.5–2% per 30 days). Platform subscription fees from corporates. Interest income on funded positions. Data and credit analytics sold to banks.",
+    scalability: "Onboard one large corporate anchor (e.g., a major FMCG company). Access their full supplier base (hundreds of SMEs). Raise institutional capital to fund the receivables portfolio. Expand to more corporates and industries.",
+    moat: "Corporate anchor relationships are exclusive and sticky. Receivables data creates a proprietary credit profile of supplier businesses. Institutional funding relationships create a cost of capital advantage that new entrants cannot easily match.",
+    entry: "Medium. Requires regulatory framework navigation, institutional funding partnerships, and enterprise sales relationships.",
+    starting: "1) Identify one large corporate willing to pilot the program. 2) Structure a small receivables fund ($1M) with a DFI or family office. 3) Onboard 20–30 of their suppliers. 4) Prove default rates and returns. 5) Raise Series A.",
+    expansion: "Supply chain finance platform → Full trade finance suite (letters of credit, import financing) → Business banking for supply chain participants → Pan-African commercial financial infrastructure."
+  },
+  {
+    id: 21,
+    title: "EdTech Platform for Professional Skills and Certification",
+    sector: "tech",
+    capital: "low",
+    geo: "global",
+    geoLabel: "Nigeria / Africa (Global reach)",
+    capitalLabel: "Low (<$50k)",
+    marketSize: "$350B+ global EdTech",
+    timeToScale: "3–5 years",
+    revenuePotential: "$50M–$300M",
+    summary: "Build a skills training and certification platform focused on in-demand digital skills (cloud computing, cybersecurity, data science, digital marketing) designed for African learners seeking global employment.",
+    concept: "Millions of young Africans want access to globally competitive skills training but cannot access or afford programs at Western institutions. A platform that delivers high-quality, mentor-supported, outcome-focused skills training with income share agreements or employer placement guarantees disrupts traditional education and commands premium pricing based on demonstrated outcomes.",
+    industry: "Global EdTech is a $350B+ market. Africa has the youngest and fastest-growing population of any continent. Youth unemployment is above 40% in many markets, creating massive demand for skills that lead to actual employment.",
+    opportunity: "Platforms like Coursera and Udemy have millions of African users but provide no job placement. ALX (formerly called Africa Leadership X) has proven that outcome-focused, intensive training commands premium pricing and can scale. The gap between skills acquired and employment outcomes is where value is created.",
+    revenue: "Upfront course fees ($200–2,000). Income share agreements (10–15% of salary for 12–24 months post-employment). Corporate training contracts. Job placement fees from employers. Certification licensing.",
+    scalability: "Content scales infinitely once created. Expand to new skill tracks. Build employer partnerships globally. Create a verified talent database that employers pay to access.",
+    moat: "Employer relationships and placement rates create a network effect — better outcomes attract more students who attract more employers. Branded certifications gain reputation over time. Alumni network becomes a self-reinforcing community.",
+    entry: "Low. Strong content and marketing capability is the primary requirement.",
+    starting: "1) Choose one high-demand skill (cybersecurity or cloud are both excellent). 2) Develop a rigorous 12-week curriculum with real projects. 3) Partner with 10 employers who will interview graduates. 4) Accept first 50 students. 5) Track outcomes obsessively.",
+    expansion: "Skills platform → Employer marketplace → Credential verification infrastructure → African talent OS — the operating system connecting Africa's workforce to global opportunity."
+  },
+  {
+    id: 22,
+    title: "Autonomous AI Agent Business Development Company",
+    sector: "tech",
+    capital: "low",
+    geo: "global",
+    geoLabel: "Global (Remote-first)",
+    capitalLabel: "Low (<$10k)",
+    marketSize: "$500B+ AI services",
+    timeToScale: "2–4 years",
+    revenuePotential: "$20M–$200M",
+    summary: "Build an AI agent company that deploys autonomous software agents to perform complex business tasks — market research, lead generation, competitive analysis, content production — for Western companies on a recurring subscription model.",
+    concept: "AI agents (Claude, GPT-4o with tools) can now autonomously browse the web, extract data, synthesize reports, write content, and execute multi-step workflows with minimal human supervision. A company that packages these agents into reliable, audited, productized services and sells them to businesses creates a scalable, high-margin operation with extraordinarily low headcount requirements.",
+    industry: "The AI services market is one of the fastest-growing sectors globally. Businesses are overwhelmed with demand for AI-enabled workflows but lack the technical expertise to build them. Demand vastly exceeds supply of skilled AI implementation partners.",
+    opportunity: "AI tools are advancing faster than enterprise adoption. A small team with deep technical expertise can build and deploy agents that replace processes previously requiring 5–10 full-time employees. The margin profile is exceptional.",
+    revenue: "Monthly retainers for running specific agent workflows ($2,000–$20,000/month). Setup and implementation fees. API access fees for proprietary agent infrastructure. White-label partnerships.",
+    scalability: "Each new workflow template serves multiple clients. Build a library of 20–30 agent workflows that can be configured and deployed rapidly. Raise capital to build a proprietary agent platform.",
+    moat: "Proprietary workflow libraries. Client data improves agent performance over time. Technical expertise compounds. First-mover brand in specific vertical use cases.",
+    entry: "Very low. Requires technical depth in AI tools and business development skills.",
+    starting: "1) Pick one specific use case (e.g., sales intelligence agents for SaaS companies). 2) Build the agent workflow using existing tools. 3) Sign 3 beta clients at $1,000/month. 4) Iterate until retention is excellent. 5) Systematize and scale.",
+    expansion: "Agent services → Proprietary agent platform → AI infrastructure company → Acquisition target for major enterprise software companies."
+  },
+  {
+    id: 23,
+    title: "Pharmaceutical Distribution and Local Manufacturing",
+    sector: "infra",
+    capital: "high",
+    geo: "nigeria",
+    geoLabel: "Nigeria / West Africa",
+    capitalLabel: "High ($500k–$5M)",
+    marketSize: "$15B+ Nigerian pharma market",
+    timeToScale: "5–10 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Build a pharmaceutical distribution company that controls the supply chain from manufacturer to pharmacy, and eventually backward-integrate into generic drug manufacturing for the African market.",
+    concept: "Nigeria's pharmaceutical market is worth over $4 billion and growing at 10%+ annually, but supply chains are fragmented, counterfeit drugs are endemic, and local manufacturing is minimal. A company that builds a reliable, technology-enabled distribution network with cold chain capability and eventually manufactures essential generics captures extraordinary recurring revenue from a captive market.",
+    industry: "Sub-Saharan Africa spends over $15 billion annually on pharmaceuticals, 70%+ of which are imported. Local manufacturing is less than 30% of consumption. The African Medicines Agency (AMA) is creating a continental regulatory framework that will reward companies with scale and compliance.",
+    opportunity: "NAFDAC is cracking down on counterfeit drugs, creating demand for verified supply chains. AfCFTA opens a continental market for quality Nigerian pharmaceutical manufacturers. COVID-19 highlighted the strategic vulnerability of Africa's dependence on imported medicines, creating political will for local manufacturing investment.",
+    revenue: "Distribution margins (8–15% of pharmaceutical wholesale value). Cold chain logistics fees. Logistics technology subscription for pharmacies. Manufacturing margins on generic drugs (30–60% gross margin).",
+    scalability: "Build distribution first (lower capital, proves the model). Use distribution cash flows and relationships to finance backward integration into manufacturing. Expand distribution into Ghana, Benin, Niger, Cameroon.",
+    moat: "NAFDAC licensing and compliance track record are barriers. Cold chain infrastructure is a physical moat. Distribution relationships with hospitals and pharmacies are sticky. Manufacturing facility investment is a high barrier for competitors.",
+    entry: "High. Requires NAFDAC registration, cold chain logistics capability, and significant working capital.",
+    starting: "1) Obtain NAFDAC wholesale distribution license. 2) Sign distribution agreements with 5–10 international pharmaceutical manufacturers. 3) Build cold chain-capable warehouse in Lagos. 4) Develop sales force targeting private hospitals and pharmacy chains.",
+    expansion: "Distribution company → Manufacturing of essential generics → Branded pharmaceutical products → Pan-African pharmaceutical company."
+  },
+  {
+    id: 24,
+    title: "Cybersecurity-as-a-Service for African Enterprises",
+    sector: "tech",
+    capital: "low",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Africa",
+    capitalLabel: "Low ($10k–$100k)",
+    marketSize: "$3B+ African cybersecurity",
+    timeToScale: "3–5 years",
+    revenuePotential: "$50M–$300M",
+    summary: "Build a managed security services company that provides enterprise-grade cybersecurity to African banks, telcos, and government agencies — a market with rapidly growing threats and virtually no local security expertise.",
+    concept: "African enterprises are experiencing a surge in cyberattacks (ransomware, phishing, BEC fraud) but the vast majority cannot afford the $500k/year+ that global cybersecurity firms charge. A locally-rooted managed security services provider (MSSP) offering 24/7 monitoring, incident response, penetration testing, and compliance advisory at 20–40% of international pricing captures an enormous underserved market.",
+    industry: "The African cybersecurity market is growing at 20%+ annually and will exceed $3 billion by 2027. Data protection regulations (Nigeria's NDPR, Kenya's Data Protection Act) are creating mandatory compliance spending. Banking sector requirements from CBN create non-discretionary security budgets.",
+    opportunity: "Global MSSPs (CrowdStrike, Palo Alto, Secureworks) have not built African operations. Local expertise is extremely scarce. Regulatory compliance requirements are accelerating. A well-credentialed, locally-rooted firm commands both trust and pricing power.",
+    revenue: "Monthly managed security retainers ($5,000–$50,000/month per enterprise client). Penetration testing projects ($50,000–$200,000 per engagement). Compliance advisory ($10,000–$100,000/year). Incident response (retainer and per-incident fees).",
+    scalability: "Build a security operations center (SOC) in Lagos. Staff with certified analysts. Expand client base across financial services, telco, and government. Build proprietary threat intelligence specific to African threat actors.",
+    moat: "Security certifications and clearances are barriers. Threat intelligence data on African-specific cyber threats is proprietary. Long-term contracts and deep integration with client environments create switching costs.",
+    entry: "Low to medium. Requires technical expertise (CISSP, CEH certified staff), but startup costs are primarily human capital.",
+    starting: "1) Assemble a team of 3–5 certified security professionals. 2) Target small banks and fintechs (regulated but underserved). 3) Offer a free security assessment to demonstrate value. 4) Convert to a managed services retainer.",
+    expansion: "MSSP → Security software products → Government security contracts → African threat intelligence platform → Acquisition target for global security company."
+  },
+  {
+    id: 25,
+    title: "Infrastructure Investment and Development Holding Company",
+    sector: "infra",
+    capital: "medium",
+    geo: "nigeria",
+    geoLabel: "Nigeria / Africa",
+    capitalLabel: "Medium–High (escalating)",
+    marketSize: "$100B+ African infrastructure gap",
+    timeToScale: "10–20 years",
+    revenuePotential: "$500M–$5B+",
+    summary: "Build a diversified infrastructure holding company that develops and owns toll roads, bridges, ports, utilities, and logistics infrastructure across Africa — the ultimate vehicle for compounding wealth across decades.",
+    concept: "The greatest fortunes in African business have been built in infrastructure — Dangote (cement, refinery), Otedola (petroleum), Adenuga (telecoms). The continent has a $170 billion annual infrastructure funding gap. A holding company that develops, owns, and operates essential physical infrastructure — earning toll revenues, utility fees, and logistics margins — creates durable, inflation-protected, hard-to-replicate wealth.",
+    industry: "Africa needs $170B+ in annual infrastructure investment but receives less than $70B. The pipeline of projects is enormous. PPP frameworks are maturing in Nigeria, Ghana, Kenya, and South Africa. DFI appetite to co-invest is at record levels.",
+    opportunity: "This is the ultimate long-term wealth vehicle. Each piece of infrastructure, once built, generates recurring cash flows for 30–50 years. These cash flows can be used to develop additional infrastructure, creating a self-reinforcing compounding machine.",
+    revenue: "Toll revenues. Utility tariffs. Port handling fees. Logistics warehouse rental income. Real estate appreciation around infrastructure corridors. Government availability payments on PPP contracts.",
+    scalability: "Each completed project strengthens the balance sheet and track record needed to win the next. Raise infrastructure funds from pension funds, DFIs, and sovereign wealth funds. Build a multi-sector infrastructure empire.",
+    moat: "Government concession agreements are absolute moats for their duration. Physical infrastructure cannot be replicated without enormous capital. Regulatory expertise and government relationships are barriers. Balance sheet strength enables access to low-cost development finance.",
+    entry: "Starts medium, becomes very high. Begin with smaller infrastructure (commercial real estate, industrial parks) and build toward larger concessions.",
+    starting: "1) Start with one specific infrastructure type (logistics park, student housing, commercial real estate). 2) Prove development and management capability. 3) Pursue a PPP concession or public-private partnership. 4) Build a management team with infrastructure finance expertise. 5) Engage DFI co-investors.",
+    expansion: "Single asset → Portfolio → Infrastructure fund manager → Publicly listed infrastructure company → Diversified African conglomerate with $5B+ asset base."
+  },
+  {
+    id: 26,
+    title: "Agentic AI Managed Services for Mid-Market Enterprises",
+    sector: "tech",
+    capital: "low",
+    geo: "global",
+    geoLabel: "USA / UK",
+    capitalLabel: "Low (<$10k) → Medium to scale",
+    marketSize: "$10B+ by 2026",
+    timeToScale: "2–4 years",
+    revenuePotential: "$50M–$500M",
+    summary: "Sell not software, but outcomes — deploy multi-agent AI systems that autonomously execute entire business workflows (accounts payable, legal discovery, customer success) for mid-market firms who can't build this in-house.",
+    concept: "Instead of selling SaaS licenses, you sell 'Digital Labor' — fully autonomous AI agent teams that execute high-friction business workflows with minimal human supervision. A client in the insurance sector doesn't pay for software; they pay for 10,000 claims processed per week. The economics are performance-based: you capture a percentage of the labor costs you eliminate. Once a workflow is 'solved,' it can be deployed to thousands of firms with near-zero marginal cost.",
+    industry: "The Agentic AI market is projected to exceed $10 billion by 2026. Enterprises are rapidly shifting from chatbots to autonomous agents that execute multi-step workflows. Mid-market firms ($50M–$500M revenue) represent the sweet spot: large enough to have painful workflow problems, too small to employ AI engineering teams.",
+    opportunity: "Mid-market firms face rapidly rising labor costs and are desperate for automation but lack the in-house expertise to build custom AI agents. No major player dominates this space yet — the window to establish vertical-specific workflow IP and become the default 'Digital Labor' provider for an industry is open right now.",
+    revenue: "Performance-based fees: a percentage (10–30%) of documented labor cost savings. Seat-based pricing for deployed digital agents ($500–$5,000/digital agent/month). Implementation and workflow design fees. Recurring optimization retainers as models are refined.",
+    scalability: "Each successfully automated workflow is a repeatable product. Solve medical billing for 1 clinic → deploy to 5,000 clinics. Build a library of 30+ industry-specific workflow packages. Raise capital to staff a sales team and expand into new verticals.",
+    moat: "Proprietary workflow data accumulated through deployments continuously improves performance — creating a compounding edge no new entrant can match. 'Human-in-the-loop' refinement loops generate labeled training data that makes each vertical model progressively more accurate. Client switching costs are high once agents are integrated into core operations.",
+    entry: "High technical complexity in multi-agent orchestration. However, modern frameworks (LangGraph, CrewAI, Claude's tool-use API) lower the floor. The real barrier is proving reliable, production-grade performance on a live workflow.",
+    starting: "1) Identify one painfully manual, high-volume process in a specific industry (e.g., medical billing, insurance claims). 2) Build an autonomous agent that handles 80% of it. 3) Offer a free pilot to 3 companies in exchange for performance data. 4) Sign first paying client on a percentage-of-savings model. 5) Document and productize the workflow.",
+    expansion: "Workflow automation studio → Industry-specific agent packages → AI Holding Company that owns the 'Digital Workforce' for entire verticals → Acquisition target for major enterprise software companies at 15–25x ARR."
+  },
+  {
+    id: 27,
+    title: "Specialized LLM Training Data Foundry",
+    sector: "tech",
+    capital: "medium",
+    geo: "global",
+    geoLabel: "Global (Remote) — Emerging Market sourcing, Western buyers",
+    capitalLabel: "Medium ($50k–$200k)",
+    marketSize: "$4B+ by 2028",
+    timeToScale: "3–5 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Become the 'Standard Oil' of the AI era — control the high-quality, legally cleared, expert-annotated training data that powers the next generation of domain-specific AI models in law, medicine, and engineering.",
+    concept: "General AI models hallucinate in specialized fields because they were trained on generic web data. The next wave of high-value AI products require 'Ground Truth' datasets: expert-annotated, legally cleared, domain-specific records. A data foundry that acquires, digitizes, cleans, annotates, and licenses vertical datasets to AI labs and enterprises controls the raw material of the AI economy — with a much more defensible moat than most software companies.",
+    industry: "As general web data is exhausted, the value of vertical training data is skyrocketing. Major AI labs (OpenAI, Anthropic, Google DeepMind) are actively paying for high-quality synthetic and real-world domain data. The training data market is projected to grow from $1.5B to $4B+ by 2028.",
+    opportunity: "Vast repositories of non-digitized, non-public domain knowledge exist — Nigerian case law, hospital records in emerging markets, engineering manuals, academic transcripts — that have never been formatted for AI consumption. A first mover who structures the legal framework and annotation pipeline for these assets creates an irreplaceable data library.",
+    revenue: "One-time dataset licensing fees ($100k–$10M per dataset to AI labs). Recurring data subscription licenses (AI labs that need updated datasets quarterly). Equity-sharing arrangements with AI startups using your proprietary data. Annotation-as-a-service for enterprises building their own models.",
+    scalability: "A single high-quality dataset can be licensed to dozens of buyers simultaneously. Build a catalog of 50+ vertical datasets. Create a data marketplace where enterprises and AI labs browse and license on demand. The marginal cost of each additional license is near zero.",
+    moat: "Exclusive agreements with institutions controlling non-public records (courts, hospitals, regulators) create an absolute barrier. Expert annotation pipelines are not easily replicated. First-mover library effects: the more data you control, the more valuable your catalog becomes to buyers who need multiple datasets.",
+    entry: "Access to specialized professionals and navigating legal frameworks for data rights are the primary barriers. Annotation quality control requires careful management. However, capital requirements are moderate and the intellectual property created is durable.",
+    starting: "1) Pick one high-value domain (e.g., Nigerian case law, agricultural yield records). 2) Partner with the institution holding the records and structure a data rights agreement. 3) Build an annotation team of domain experts. 4) Create an initial dataset and approach 3 AI labs with a pilot license. 5) Use licensing revenue to fund the next dataset.",
+    expansion: "Vertical data foundry → Multi-sector data catalog → AI data marketplace → Potential acquisition by a major AI lab or enterprise software company seeking proprietary data assets."
+  },
+  {
+    id: 28,
+    title: "Data Center Cooling & Power Infrastructure Services",
+    sector: "infra",
+    capital: "medium",
+    geo: "global",
+    geoLabel: "USA (Virginia / Texas) / UAE",
+    capitalLabel: "Medium ($100k–$500k)",
+    marketSize: "$20B+ data center services",
+    timeToScale: "3–6 years",
+    revenuePotential: "$100M–$500M",
+    summary: "Build a specialized engineering firm providing liquid cooling systems and backup power infrastructure for the AI data center boom — where NVIDIA H100 chips generate 3x the heat of traditional hardware and every existing data center needs retrofitting.",
+    concept: "AI chips (NVIDIA H100, H200) generate dramatically more heat per rack than conventional servers. Existing data centers are physically incapable of handling AI workloads without significant cooling and power upgrades. A specialized engineering and installation company that retrofits existing facilities and designs AI-ready power and cooling systems for new builds captures a multi-year backlog of urgent, high-value contracts — with recurring maintenance revenue on top.",
+    industry: "Global data center investment is exceeding $200 billion annually, driven by AI demand. The bottleneck is not chips or bandwidth — it is power and cooling infrastructure. Liquid cooling, immersion cooling, and hydrogen/natural gas backup power are engineering specialties with severe talent shortages. The waiting list for qualified contractors is measured in years.",
+    opportunity: "The 'AI Multiplier' created overnight demand for engineering capabilities that the market cannot supply fast enough. Traditional data center contractors are not equipped for liquid cooling and high-density power distribution. A firm that builds this specific technical expertise now locks in contracts before the talent gap closes.",
+    revenue: "Project-based installation fees ($500k–$10M per data center upgrade). Recurring maintenance and monitoring contracts ($50k–$500k/year per facility). Equipment procurement margins (Tier-1 vendor partnerships with Vertiv, Caterpillar, Schneider Electric). Design and engineering consulting for new data center builds.",
+    scalability: "Build technical playbooks for each cooling technology type. Staff specialized teams. Expand from retrofits to greenfield data center design. Acquire vendor partnerships that provide margin on equipment. Expand into Asia and the Middle East where data center investment is accelerating.",
+    moat: "Deep 'yellow iron' technical expertise and certified engineering staff are not easily replaced. Tier-1 vendor partnerships (Vertiv, Caterpillar) create preferential pricing and exclusivity. Track record with hyperscale clients (AWS, Microsoft Azure) is a barrier to new entrants. Industry certifications (Uptime Institute, TIA-942) create credential barriers.",
+    entry: "Specialized engineering talent is scarce and expensive. Certifications take time. However, the demand is so severe that even a small qualified team can immediately win contracts — the market is actively seeking qualified contractors.",
+    starting: "1) Hire 2–3 engineers with data center power/cooling certifications. 2) Offer retrofitting services to small colocation providers needing AI-workload upgrades. 3) Build a relationship with one major equipment vendor (Vertiv or Schneider). 4) Complete first 3 projects and build a case study portfolio. 5) Target hyperscaler subcontract opportunities.",
+    expansion: "Cooling & power engineering firm → Full data center design-build capability → Acquire land and develop proprietary AI-ready co-location centers → Pan-global data center infrastructure company."
+  },
+  {
+    id: 29,
+    title: "Vertically Integrated Livestock & Premium Leather Tannery",
+    sector: "infra",
+    capital: "high",
+    geo: "nigeria",
+    geoLabel: "Nigeria (Northern Region)",
+    capitalLabel: "High ($500k–$2M)",
+    marketSize: "$400B+ global leather goods",
+    timeToScale: "5–8 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Own the entire Farm-to-Fashion supply chain — from livestock production and abattoir operations through premium leather tanning — capturing the margin at every stage and eventually building a globally recognized African luxury leather brand.",
+    concept: "Nigeria's North produces millions of livestock annually but value capture is minimal: middlemen extract most margin, hides are poorly processed, and the end product sells at commodity prices. A vertically integrated operation that controls the farm (cattle/goats), the abattoir (premium meat for domestic sale), and a modern tannery (finished leather for export) captures value at every step. The 'zero-waste' model uses every part of the animal: meat for revenue, hides for premium leather, bones for fertilizer. This creates a business with multiple revenue streams and structural cost advantages over competitors who buy raw hides at market prices.",
+    industry: "The global leather goods market exceeds $400 billion. Premium leather is in severe supply shortage as European luxury brands (Hermès, Louis Vuitton, Gucci) actively seek traceable, ethically-sourced hides. African livestock offers a unique opportunity: animals raised on natural pasture produce leather with distinctive grain characteristics prized in luxury markets.",
+    opportunity: "Massive inefficiencies in the middle of Nigeria's livestock supply chain — middlemen, poor slaughter hygiene, uncontrolled hide handling — destroy value that a vertically integrated operator can capture. Global luxury brands are actively seeking African supply chain partners who can demonstrate consistent quality and ethical sourcing. No such company currently exists at scale in Nigeria.",
+    revenue: "Meat sales to domestic retail and food service (immediate cash flow). Semi-processed and finished leather export to European luxury manufacturers ($5–25/sqft for premium grades). Branded consumer goods (bags, shoes, belts) sold direct-to-consumer at 5–15x leather cost. Organic fertilizer from bone meal sold to agricultural sector.",
+    scalability: "Expand the farm operation to additional states. Build a second tannery near a major port for export efficiency. Launch a direct-to-consumer leather goods brand that commands global premium pricing. License the 'Nigerian Premium Leather' origin story as a brand asset.",
+    moat: "Vertical integration creates a structural cost advantage — you don't pay middleman margins at any stage. Traceable, certified supply chain documentation commands premium prices from European buyers. Scale creates quality consistency that smaller operators cannot achieve. A proprietary consumer brand built on this foundation compounds value over decades.",
+    entry: "High. Requires land, livestock expertise, abattoir permits, tannery engineering, and export certifications (NAFDAC, NEPC). However, each step is individually manageable and the business can be built in stages.",
+    starting: "1) Secure 50–100 hectares in Kano, Kaduna, or Sokoto state with access to grazing and water. 2) Begin with intensive goat farming (lower capital than cattle). 3) Build a small-scale abattoir with hygienic processing standards. 4) Partner with an existing small tannery for initial hide processing while building your own. 5) Get Nigerian Export Promotion Council (NEPC) certification.",
+    expansion: "Integrated livestock and tannery → Premium leather export business → 'Savanna' luxury leather goods brand → Pan-African luxury goods conglomerate with global retail presence."
+  },
+  {
+    id: 30,
+    title: "Cross-Border B2B Liquidity and FX Platform",
+    sector: "finance",
+    capital: "high",
+    geo: "global",
+    geoLabel: "Mauritius / UAE / UK (with Nigeria operations)",
+    capitalLabel: "High ($1M+ for liquidity and licensing)",
+    marketSize: "$20T+ global trade finance",
+    timeToScale: "4–7 years",
+    revenuePotential: "$100M–$2B",
+    summary: "Use stablecoins and modern banking rails to become the fastest, cheapest liquidity provider for B2B cross-border payments — solving the dollar scarcity problem that costs African importers and exporters billions annually in fees and delays.",
+    concept: "Traditional SWIFT transfers between Nigeria and China, India, or Turkey take 3–7 days and cost 3–8% of transaction value. African SME importers are systematically disadvantaged by this — large companies have correspondent banking relationships; small businesses do not. A platform that combines stablecoin settlement rails with traditional banking licenses provides near-instant, low-cost FX conversion and settlement, capturing a transaction spread while solving a genuine structural problem.",
+    industry: "Global cross-border B2B payments exceed $150 trillion annually. The trade finance gap in Africa alone exceeds $80 billion. Emerging market companies pay 3–10x more for cross-border transactions than their Western counterparts. The regulatory environment for stablecoin-based settlement is maturing rapidly in the UAE, UK, and Mauritius.",
+    opportunity: "The 'Dollar Scarcity' problem in Nigeria, Ethiopia, and Egypt creates massive demand for alternative settlement mechanisms. SWIFT's correspondent banking model systematically excludes SMEs. Crypto-based settlement rails (USDC, USDT) can process transactions in minutes at a fraction of traditional cost — but need a licensed intermediary that businesses trust to operate them.",
+    revenue: "Transaction spread on FX conversion (0.5–2% per transaction). Monthly subscription for treasury management dashboard ($500–$5,000/month per corporate client). Structured trade finance products (invoice financing, letters of credit) generating interest income. Volume-based enterprise pricing for high-frequency importers.",
+    scalability: "Transaction volume scales with zero proportional increase in fixed costs. Add currency corridors incrementally (start Nigeria-China, then India, Turkey, UAE). Expand client base from importers to exporters, then to financial institutions using your rails for their own clients.",
+    moat: "Regulatory licenses across multiple jurisdictions are expensive and time-consuming to obtain and create absolute barriers. Deep liquidity pools reduce slippage and attract volume, creating a flywheel. Banking partnerships are relationship-based and not easily replicated by new entrants. Compliance infrastructure (AML/KYC at scale) compounds as a trust asset.",
+    entry: "Very high. Requires regulatory licensing in at least one favorable jurisdiction (Mauritius, UAE DIFC, UK FCA). Significant working capital for liquidity pools. Compliance team and banking partnerships are prerequisites.",
+    starting: "1) Incorporate in Mauritius or UAE and obtain a money services business license. 2) Solve one specific corridor (Nigeria to China for electronics importers). 3) Build relationships with 5 anchor corporate clients. 4) Partner with a regulated crypto exchange for stablecoin settlement. 5) Prove the corridor and use it as a template for expansion.",
+    expansion: "FX and settlement platform → Trade finance products → Neo-bank for global trade → Financial infrastructure for the African Continental Free Trade Area → Acquisition target for a major payments company (Stripe, Wise, Flutterwave)."
+  },
+  {
+    id: 31,
+    title: "Modular Industrial Park Development",
+    sector: "infra",
+    capital: "high",
+    geo: "global",
+    geoLabel: "Vietnam / Mexico / Nigeria (Lekki Zone)",
+    capitalLabel: "High ($2M–$5M)",
+    marketSize: "$300B+ industrial real estate",
+    timeToScale: "5–10 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Build 'Plug-and-Play' factory shells — pre-installed with power, water, fiber optic, and security — for manufacturers who need to start production in 90 days rather than the 3 years it takes to build from scratch.",
+    concept: "The 'China+1' and 'Reshoring' megatrends are forcing thousands of manufacturers to urgently establish operations in new geographies (Vietnam, Mexico, Nigeria, India). Building a factory from scratch takes 2–3 years of permitting, construction, and utility hookup. A developer who anticipates this demand, acquires land in strategic industrial zones, and builds modular 1,000–5,000 sqm factory shells pre-installed with all utilities can charge a significant premium for the one thing manufacturers cannot buy elsewhere: speed to production.",
+    industry: "Global industrial real estate is a $300B+ market growing at 8% annually. The reshoring megatrend is adding hundreds of billions in new industrial space demand. Free trade zones and special economic zones in Vietnam, Mexico, and Nigeria offer significant tax incentives for industrial developers.",
+    opportunity: "The gap between where manufacturers need to be and the ready infrastructure that exists there is enormous. In Nigeria's Lekki Free Trade Zone, in Mexico's Monterrey corridor, and in Vietnam's industrial provinces — the demand for ready-to-occupy factory space consistently exceeds supply. A developer who understands this geography commands 20–40% premium rents versus traditional commercial real estate.",
+    revenue: "Long-term industrial leases (10–20 year contracts, $8–20/sqft/year). Service fees for shared infrastructure (security, logistics docking, internet, HR services). Equity participation in tenant businesses in exchange for below-market rent. Sale of developed parks to infrastructure REITs at 6–8% cap rates.",
+    scalability: "Each successfully leased park generates a case study for raising capital to build the next one. Franchise the park management model to local partners in new geographies. Build a portfolio of 10–15 parks across 4–5 countries. Package as an industrial REIT for institutional investors.",
+    moat: "Land acquisition in strategic free trade zones ahead of demand is a physical moat. Government relationships for operating licenses and utility access are barriers. Tenant relationships create community effects: clustered manufacturers share logistics, workforce, and suppliers, making relocation costly.",
+    entry: "High. Land acquisition, construction permitting, and utility infrastructure require significant capital and local political relationships. However, international development finance institutions (IFC, AfDB, DEG) actively fund industrial park development in emerging markets.",
+    starting: "1) Identify a specific industrial zone with documented unmet demand (Lekki FTZ, or one of Vietnam's industrial provinces). 2) Acquire a 5-acre site and secure zoning approval. 3) Build three 1,000 sqm modular shells with pre-installed utilities. 4) Pre-lease at least one unit before construction begins. 5) Use completed park as collateral to raise debt for expansion.",
+    expansion: "Pilot industrial park → Multi-site portfolio → Pan-country industrial developer → Industrial REIT listed on a major exchange → 'Smart Industrial City' developer with technology-enabled tenant services."
+  },
+  {
+    id: 32,
+    title: "Longevity & Precision Wellness Clinics",
+    sector: "tech",
+    capital: "medium",
+    geo: "global",
+    geoLabel: "USA / Dubai / Singapore",
+    capitalLabel: "Medium ($200k–$500k)",
+    marketSize: "$600B+ longevity economy",
+    timeToScale: "4–7 years",
+    revenuePotential: "$50M–$500M",
+    summary: "Build high-end longevity clinics offering biological age testing, personalized IV therapy, DNA-based nutrition, and preventative screening — capturing the elite market willing to pay $10,000–$50,000/year to optimize their healthspan, not just treat disease.",
+    concept: "The global elite are shifting from reactive healthcare (treating disease) to proactive optimization (preventing it). Biological age testing, VO2 max assessment, advanced genomics, personalized supplement protocols, and hormone optimization represent a new category of healthcare that traditional hospitals and clinics are not positioned to deliver. A premium clinic that packages these services under one roof, builds a proprietary member data platform, and brands itself as the leading 'Human Performance' destination commands extraordinary pricing and loyalty.",
+    industry: "The longevity economy is projected to exceed $600 billion globally as high-net-worth individuals allocate meaningful portions of their wealth to extending 'healthspan.' Peter Attia's 'Outlive,' Bryan Johnson's Blueprint project, and the explosive growth of clinic chains like Next Health and Cleveland Clinic's Executive Health program demonstrate mainstream appetite for this category.",
+    opportunity: "Traditional healthcare is reactive and insurance-driven. Longevity medicine operates outside insurance — clients pay out-of-pocket, eliminating reimbursement complexity. The market is fragmented with no dominant luxury brand globally. A clinic with strong medical credibility, exceptional design, and a proprietary member data platform can scale via a 'luxury brand' model similar to Equinox or LVMH.",
+    revenue: "Annual memberships ($10,000–$50,000/year providing unlimited core diagnostics). À la carte premium services (IV therapy, ozone, plasmapheresis). Proprietary supplement line based on aggregate member outcome data. Physician consultation and specialist referral fees. Corporate executive health packages ($5,000–$20,000/executive/year).",
+    scalability: "Prove the model in one flagship location. Develop a replicable clinical and operational playbook. Expand to additional high-wealth cities. License the brand and protocols to partner clinics globally. Build a consumer supplement and wellness product line that scales without physical infrastructure.",
+    moat: "Proprietary longitudinal health data on thousands of members creates an irreplaceable clinical intelligence asset. Brand prestige and physician talent are barriers. Proprietary supplement formulations create recurring direct-to-consumer revenue. Member community creates word-of-mouth that luxury brands depend on.",
+    entry: "Medium. Requires specialized medical staff (MD with longevity subspecialty), expensive diagnostic equipment, and exceptional interior design to command premium positioning. Medical licensing varies by jurisdiction.",
+    starting: "1) Open a single flagship clinic in a high-wealth neighborhood (Beverly Hills, Dubai DIFC, Singapore Orchard Road). 2) Partner with a respected longevity physician as medical director. 3) Invest heavily in design — the physical environment must signal luxury. 4) Offer founding member packages to 50 clients at a significant discount to build initial data and testimonials. 5) Launch a proprietary supplement line once you have clinical outcome data.",
+    expansion: "Flagship clinic → Multi-city clinic network → Consumer longevity brand → Proprietary diagnostics platform → Longevity data company with pharmaceutical partnerships."
+  },
+  {
+    id: 33,
+    title: "Deepfake Defense & Digital Identity Verification",
+    sector: "tech",
+    capital: "low",
+    geo: "global",
+    geoLabel: "USA / Israel",
+    capitalLabel: "Low–Medium (primarily talent and compute)",
+    marketSize: "$15B+ by 2030",
+    timeToScale: "3–5 years",
+    revenuePotential: "$100M–$2B",
+    summary: "Build the verification layer the internet has been missing — a 'Liveness Detection' and digital identity platform that banks, governments, and enterprises use to verify that the human on the other side of a transaction is real, not AI-generated.",
+    concept: "Generative AI has made it trivially easy to create photorealistic fake faces, clone voices, and generate convincing video of anyone saying anything. Current KYC (Know Your Customer) systems at banks, identity platforms, and remote work companies are not designed to detect these attacks. A company that builds a 'cat-and-mouse' algorithm continuously retrained against the latest deepfake models provides a service that every financial institution, government, and large enterprise will eventually require — and which must be continuously updated, creating permanent recurring revenue.",
+    industry: "AI-generated fraud is projected to cost businesses over $40 billion annually by 2027. The digital identity verification market is expected to exceed $15 billion by 2030. Every bank, government ID system, remote hiring platform, and video conferencing tool is a potential customer. Regulatory pressure (EU AI Act, US Executive Order on AI) is mandating synthetic media detection in critical systems.",
+    opportunity: "Current identity verification companies (Onfido, Jumio, Socure) were built for the pre-generative-AI era and are scrambling to adapt. A company built natively for the generative AI threat landscape has a fundamental architectural advantage. The 'Liveness Detection' problem is not solved — it is an ongoing arms race where the defender must continuously train against new attack models.",
+    revenue: "API-based 'Pay-per-verification' pricing ($0.05–$0.50 per check). Enterprise licenses for high-volume institutional clients (banks, governments, large employers). SaaS subscriptions for SME clients. Government contracts for national ID and border control applications. Professional services for integration and compliance consulting.",
+    scalability: "API-first business model scales infinitely with transaction volume. Each additional verification improves the model's detection capability — creating a compounding data advantage. Expand from financial services to government identity, healthcare, and remote hiring. International expansion follows regulation — wherever AI Act compliance is required, you go.",
+    moat: "Continuous model training against the latest deepfake attacks creates a technical moat that compounds — you must have the most current attack data to build the best defense. Regulatory certifications (eIDAS, SOC2, ISO 27001) are barriers. Enterprise integrations create switching costs. Brand trust in a safety-critical context is durable.",
+    entry: "Extreme technical difficulty. Requires world-class ML engineering talent, access to large datasets of real and synthetic media, and significant compute. Israel and the USA are the primary talent hubs. Well-funded competitors (Microsoft, Google) are also in this space.",
+    starting: "1) Build a highly accurate liveness detection API focused on one specific attack vector (video deepfakes in KYC). 2) Target fintech companies doing remote onboarding as initial clients. 3) Partner with an academic research lab for access to synthetic media datasets. 4) Publish research to establish technical credibility. 5) Pursue regulatory pilot programs with financial regulators.",
+    expansion: "Liveness detection API → Full digital identity verification platform → Government ID infrastructure → 'Trust Layer' for the global internet — the authentication protocol that all digital identity runs through."
+  },
+  {
+    id: 34,
+    title: "Horticulture Export & Premium Food Processing",
+    sector: "infra",
+    capital: "high",
+    geo: "nigeria",
+    geoLabel: "Nigeria / East Africa",
+    capitalLabel: "High ($500k–$3M)",
+    marketSize: "$200B+ global specialty food",
+    timeToScale: "4–7 years",
+    revenuePotential: "$50M–$500M",
+    summary: "Build a vertically integrated operation exporting premium African horticulture — hibiscus, sesame, cashew, moringa, ginger — with value-added processing to capture the health food and specialty ingredient markets in Europe and North America.",
+    concept: "Africa produces vast quantities of specialty crops — hibiscus (used in health beverages), moringa (superfood ingredient), cashew, ginger, sesame, and tiger nuts — that command premium prices in Western health food markets. Most African producers export raw, unprocessed commodities at the lowest margin point. A company that controls sourcing from smallholder farmers, builds processing infrastructure (drying, milling, packaging) to global food safety standards (FSSC 22000, EU Organic), and markets directly to Western specialty food buyers captures 3–10x the value of raw commodity export.",
+    industry: "The global specialty food and health ingredient market exceeds $200 billion and is growing at 8%+ annually. Western consumer demand for 'clean label,' traceable, and functional food ingredients is structural. African-origin ingredients (moringa, baobab, hibiscus) have unique health profiles and origin stories that command significant premiums.",
+    opportunity: "The gap between what Africa produces and what value it captures from global food markets is enormous. Nigerian sesame exports at $0.80/kg raw; processed and certified organic sesame oil sells for $8–15/kg in European markets. A processor with the right certifications and buyer relationships captures this 10x value expansion.",
+    revenue: "Export of processed specialty ingredients to European and North American food companies. Direct-to-consumer health food brand sold via Amazon, Whole Foods, and EU organic retail. Contract processing for other exporters using your certified facility. Carbon credits for smallholder farmer programs (agroforestry co-benefits).",
+    scalability: "Secure long-term supply contracts with 500–1,000 smallholder farmers. Expand processing facility capacity as export volumes grow. Launch consumer brand in parallel with ingredient sales. Expand crop range as processing infrastructure matures.",
+    moat: "Export certifications (EU Organic, USDA Organic, FSSC 22000) take 2–3 years to obtain and are high barriers. Smallholder farmer network relationships create a captive supply chain that competitors cannot easily access. Proprietary consumer brand built on African origin story creates durable value.",
+    entry: "High. Requires processing facility construction, food safety certification, export logistics infrastructure, and significant working capital for seasonal inventory.",
+    starting: "1) Choose one crop with strong global demand (hibiscus or moringa are excellent starting points). 2) Build aggregation relationships with farmer cooperatives in 2–3 states. 3) Construct a small drying and processing facility to food safety standards. 4) Apply for EU organic certification. 5) Attend a major European food trade show (BIOFACH in Nuremberg) to meet buyers.",
+    expansion: "Single-crop processor → Multi-crop specialty ingredient exporter → African superfood consumer brand → Vertically integrated agricultural company with global distribution."
+  },
+  {
+    id: 35,
+    title: "African Creative IP Holding & Global Licensing Company",
+    sector: "tech",
+    capital: "low",
+    geo: "global",
+    geoLabel: "Nigeria / Global",
+    capitalLabel: "Low (relationships-first) → Medium to scale",
+    marketSize: "$2T+ global entertainment",
+    timeToScale: "4–8 years",
+    revenuePotential: "$100M–$2B",
+    summary: "Build the IP holding company that owns, manages, and globally monetizes African creative intellectual property — music masters, film libraries, comic characters, fashion trademarks — creating a compound royalty machine modeled on the LVMH or Disney IP playbook.",
+    concept: "African creative output is experiencing its greatest moment of global demand — Afrobeats streams in the billions, Nollywood's Netflix penetration is growing, African fashion brands are commanding global press. But almost all of this value is captured by Western intermediaries: streaming platforms, distributors, and talent agencies. A company that structures ownership of the IP itself — through music master acquisitions, film co-productions, character licensing, and brand equity building — creates a royalty and licensing income machine that appreciates as African cultural influence grows globally.",
+    industry: "The global entertainment market exceeds $2 trillion. African creative content is the fastest-growing segment globally (Burna Boy, Wizkid, Davido command audiences larger than most Western artists). The IP model (own the master recording, collect royalties forever) is the most durable wealth-building model in media — exemplified by the valuations commanded by Hipgnosis, Primary Wave, and Sony Music's catalog acquisitions.",
+    opportunity: "African artists sign exploitative deals that hand IP rights to Western labels and distributors. The sophistication to structure IP ownership correctly is scarce in African markets. A company that provides better deal structures while retaining meaningful IP equity — or that acquires existing catalogs at discounted valuations before African cultural assets are revalued — creates an irreversible wealth position.",
+    revenue: "Royalty income from owned music masters (streaming, sync licensing, live performance). Film and television licensing fees. Character and brand licensing to consumer goods manufacturers. Brand partnership and endorsement facilitation for represented talent. Real estate appreciation of IP catalog value as African culture globalizes.",
+    scalability: "IP catalogs appreciate over time without additional investment. Each successful asset validates the acquisition strategy and attracts institutional co-investors. Structure a dedicated IP acquisition fund. License IP packages to streaming platforms globally on long-term terms.",
+    moat: "IP ownership is an absolute moat — no one can use your music, characters, or trademarks without paying you. Catalog value compounds as streaming grows. First-mover relationships with African talent before Western majors dominate. Brand and legal expertise in African IP structures is scarce.",
+    entry: "Low capital for initial relationship-building; medium capital for first IP acquisitions. Requires deep entertainment law expertise, creator relationships, and licensing industry knowledge.",
+    starting: "1) Structure the company in a jurisdiction favorable for IP holding (Netherlands, UK, or Mauritius). 2) Approach 3–5 mid-tier Afrobeats artists about co-ownership structures for their next project. 3) Co-produce one film or EP retaining meaningful IP equity. 4) License it aggressively across all streaming platforms. 5) Use royalty income to fund the next IP acquisition.",
+    expansion: "Music and film IP holding → Multi-sector African IP fund → Consumer licensing (fashion, gaming, animation) → African creative economy conglomerate → Potential listing on NYSE or LSE as African culture becomes a globally recognized asset class."
+  },
+  {
+    id: 36,
+    title: "Critical Minerals Tailings Reprocessing",
+    sector: "infra",
+    capital: "high",
+    geo: "global",
+    geoLabel: "South Africa / DRC / Chile",
+    capitalLabel: "High ($1M–$5M pilot)",
+    marketSize: "$500B+ critical minerals",
+    timeToScale: "5–10 years",
+    revenuePotential: "$100M–$2B",
+    summary: "Use modern hydrometallurgical and bio-leaching technologies to extract high-value critical minerals — copper, cobalt, lithium, gold — from legacy mine tailings dumps, building a mid-tier mining company without exploration risk.",
+    concept: "Decades ago, extraction technology was primitive, leaving significant concentrations of valuable minerals in mine waste (tailings). These dumps now sit abandoned across South Africa, the DRC, and Chile — legally accessible, already disturbed, and often requiring environmental remediation that governments will pay for. A company that secures mineral rights over these tailings and applies modern hydrometallurgical or bio-leaching chemistry to extract critical minerals creates a mining business without the 10–15 year exploration-to-production timeline of a conventional mine.",
+    industry: "The energy transition requires 4–6x current production of copper, cobalt, and lithium by 2040. Discovering and permitting new greenfield mines takes 10–15 years and costs billions. Tailings reprocessing bypasses exploration risk entirely and often qualifies for environmental remediation grants, fundamentally improving the economics of entry. The critical minerals market exceeds $500 billion and is structurally undersupplied.",
+    opportunity: "Two converging forces: surging demand for battery metals and tightening ESG restrictions on new mine permits. Tailings reprocessing solves both — it supplies critical minerals without new land disturbance and rehabilitates toxic legacy sites. Governments actively fast-track permits for remediation projects, eliminating one of the largest bottlenecks in conventional mining.",
+    revenue: "Direct sale of extracted mineral concentrates (copper, cobalt, gold) to smelters and commodity trading houses. Environmental remediation contracts from government agencies. Carbon credits for preventing acid mine drainage from legacy tailings. Royalty agreements on processing technology licensed to other operators.",
+    scalability: "Once a processing formula is proven for a specific tailings chemistry, it can be deployed across multiple deposits with the same metallurgy. Build a portfolio of 5–10 reprocessing plants across different geographies and mineral types. Each plant generates standalone cash flow while the portfolio compounds.",
+    moat: "Exclusive mineral rights over specific tailings dumps are an absolute physical moat. Proprietary processing chemistry tailored to local ore grades is not easily replicated. First-mover relationships with governments for remediation-linked fast-track permitting. Processing IP creates a licensing revenue stream.",
+    entry: "High technical execution risk — leaching chemistry must be precisely calibrated to each deposit's mineralogy. Environmental liability from mishandled tailings is significant. However, partnering with a specialized university lab or established metallurgical firm for the pilot phase significantly de-risks the technical dimension.",
+    starting: "1) Hire a hydrometallurgist with tailings reprocessing experience. 2) Identify 3 candidate tailings dumps in a target country and secure option agreements on mineral rights. 3) Partner with a university metallurgy department to test leaching recovery rates on drill samples. 4) Build a small pilot plant (~$1M) to demonstrate commercial-grade recovery. 5) Use pilot data to raise project finance from a mining-focused DFI or streaming company.",
+    expansion: "Pilot reprocessing plant → Commercial-scale facility → Multi-site portfolio across Southern Africa and South America → Mid-tier critical minerals company → Strategic acquisition target for a major mining house or battery manufacturer seeking secure supply."
+  },
+  {
+    id: 37,
+    title: "Zero-Liquid-Discharge Desalination & Brine Mining",
+    sector: "infra",
+    capital: "high",
+    geo: "global",
+    geoLabel: "Saudi Arabia / UAE / Chile",
+    capitalLabel: "High ($2M–$5M pilot)",
+    marketSize: "$30B+ water tech / $500B+ minerals",
+    timeToScale: "7–12 years",
+    revenuePotential: "$500M–$5B+",
+    summary: "Build zero-liquid-discharge desalination plants that solve the freshwater crisis while simultaneously extracting lithium, magnesium, and other battery-critical minerals from the brine byproduct — turning a toxic waste stream into a second revenue engine.",
+    concept: "Conventional desalination produces two outputs: freshwater and hypersaline brine. The brine is typically dumped back into the ocean, destroying marine ecosystems. Zero-liquid-discharge (ZLD) technology eliminates the brine entirely by crystallizing it into solid mineral salts — lithium chloride, magnesium sulfate, sodium, rubidium — that have significant commodity value. A plant that sells freshwater to municipalities under long-term contracts AND sells battery-grade minerals to commodity markets has a fundamentally better unit economics model than conventional desalination.",
+    industry: "Two trillion-dollar crises converge here: global freshwater scarcity (2 billion people currently face high water stress) and critical mineral shortages (lithium demand will grow 500% by 2040 to supply EV batteries). Saudi Arabia, the UAE, and Chile represent the perfect pilot markets: extreme water stress, government capital availability, and in Chile's case, the world's largest lithium brine deposits in the Atacama Desert.",
+    opportunity: "Traditional desalination operators treat brine disposal as a cost — a liability. ZLD technology transforms it into an asset. This conceptual flip unlocks government subsidies (freshwater production), environmental credits (no ocean discharge), AND commodity revenue (minerals) simultaneously. No large-scale commercial operator has successfully combined all three revenue streams.",
+    revenue: "Long-term municipal freshwater purchase agreements ($0.50–$2.00 per cubic meter, 20–30 year contracts). Spot and forward sales of extracted minerals (lithium carbonate: $15,000–$80,000/tonne depending on market). Environmental credits for zero ocean discharge. Technology licensing fees to other desalination operators.",
+    scalability: "Sovereign-backed water infrastructure projects are bankable at billion-dollar scale with multilateral development bank financing. Each successful plant creates a reference case that unlocks government contracts globally. Technology licensing creates a capital-light parallel revenue stream.",
+    moat: "Advanced membrane and crystallization IP is protectable and difficult to replicate without years of R&D. Long-term government water supply contracts create 20–30 year revenue visibility. First-mover brine mineral extraction creates feedstock advantages with battery manufacturers. Government relationships in water-stressed nations are irreplaceable.",
+    entry: "Extreme capital intensity and highly complex chemical engineering are the primary barriers. The technology requires continuous process optimization. However, the sovereign backing of municipal water contracts makes project financing accessible from infrastructure-focused institutions (World Bank, IsDB, AIIB).",
+    starting: "1) Partner with an existing industrial desalination plant to install a brine mineral extraction module on their outflow (low capital entry). 2) Prove lithium and magnesium extraction yields over 12 months. 3) Use pilot data to attract a sovereign wealth fund or DFI as anchor co-investor. 4) Design a full ZLD plant with freshwater + mineral revenue integrated from the outset.",
+    expansion: "Industrial desalination pilot → Municipal-scale ZLD plant → Portfolio of sovereign-contracted water facilities → Global water and critical minerals infrastructure company → IPO or acquisition by a major utility or mining conglomerate."
+  },
+  {
+    id: 38,
+    title: "Industrial Biochar & High-Fidelity Carbon Removal",
+    sector: "infra",
+    capital: "medium",
+    geo: "global",
+    geoLabel: "Brazil / Indonesia / Sub-Saharan Africa",
+    capitalLabel: "Medium–High ($300k–$1M per plant)",
+    marketSize: "$50B+ carbon removal market",
+    timeToScale: "3–6 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Build industrial pyrolysis plants that convert agricultural waste into biochar — selling it as a premium soil amendment while generating the high-integrity carbon dioxide removal (CDR) credits that Microsoft, Stripe, and Alphabet are desperately buying at $100–$600 per tonne.",
+    concept: "Biochar is produced by heating agricultural or forestry waste (sugarcane bagasse, sawmill offcuts, rice husks) in the absence of oxygen — a process called pyrolysis. The result is a highly stable form of carbon that, when added to soil, sequesters CO₂ for 100–1,000 years while improving soil fertility, water retention, and crop yields. A biochar operation has two simultaneous revenue streams: agronomists and mega-farms pay for the soil amendment, and Fortune 500 companies pay for the verified carbon dioxide removal credits. The economics improve dramatically when biomass feedstock is acquired for free or negative cost from agricultural processors who must otherwise pay for waste disposal.",
+    industry: "The voluntary carbon market is fundamentally shifting from 'avoided emissions' credits (which have faced widespread fraud allegations) to verifiable, permanent carbon dioxide removal. Big tech companies (Microsoft, Stripe, Alphabet, Shopify) have made multi-year commitments to purchase engineered CDR at $100–$600/tonne. Biochar is currently one of the few CDR methods that is immediately scalable — no experimental technology required.",
+    opportunity: "There is a severe and documented supply shortage of high-integrity CDR credits. Microsoft's 2030 carbon negative target alone requires millions of tonnes of removal per year. The biomass waste available from tropical agriculture (palm oil, sugarcane, rice) is enormous and largely untapped. A developer who secures biomass waste streams from major agricultural processors and builds pyrolysis plants at scale can sell credits years in advance on forward contracts.",
+    revenue: "Biochar sales to large-scale farms and soil amendment distributors ($200–$800/tonne). High-integrity CDR credit sales to corporate buyers ($100–$600/tonne of CO₂ removed). Forward offtake agreements with Microsoft or Stripe's Frontier CDR fund (pre-selling future credit production). Tipping fees from agricultural processors who pay to have their waste removed.",
+    scalability: "Once the biomass supply agreement and pyrolysis unit design are standardized, each new plant is a near-identical capital deployment. Aggregate 5–10 plants generating 50,000–200,000 tonnes of biochar per year. Sell block CDR contracts to multiple corporate buyers. The carbon credit revenue is stackable on top of the biochar product revenue with minimal incremental cost.",
+    moat: "Long-term, exclusive biomass waste supply agreements with major agricultural processors are the most critical moat — no feedstock, no product. MRV (Measurement, Reporting, and Verification) certification under Puro.earth or Verra's BCR methodology takes 12–18 months and is a significant barrier. Corporate buyer relationships and multi-year forward contracts lock in revenue visibility.",
+    entry: "Medium capital for the first pyrolysis plant. The MRV process for carbon credits is complex and time-consuming. Biomass supply chain logistics require local expertise. However, the existence of established CDR buyers with committed capital (Frontier) significantly de-risks the revenue side.",
+    starting: "1) Approach a large palm oil mill, sugarcane processor, or sawmill about taking their waste for free. 2) Install a small continuous-feed pyrolysis unit (200–500 kg/hour capacity) on or near their site. 3) Begin MRV certification under Puro.earth immediately. 4) Sell initial biochar production to regional agricultural distributors while credits are being certified. 5) Sign a forward CDR contract with a corporate buyer to fund plant 2.",
+    expansion: "Single pyrolysis plant → Multi-plant portfolio → Pan-tropical biochar network → Aggregated CDR credit sales to sovereign nations meeting Paris Agreement targets → Listed carbon removal infrastructure company."
+  },
+  {
+    id: 39,
+    title: "B2B Niche Media & Intelligence Terminal",
+    sector: "tech",
+    capital: "low",
+    geo: "global",
+    geoLabel: "USA (NYC / SF) / UK (London)",
+    capitalLabel: "Low (<$10k to start)",
+    marketSize: "$30B+ B2B media and data",
+    timeToScale: "3–6 years",
+    revenuePotential: "$50M–$500M",
+    summary: "Build 'Bloomberg for Space' (or Quantum, or Synthetic Biology) — a high-priced subscription intelligence ecosystem serving C-suite executives and institutional investors in an emerging deep-tech sector that has zero dedicated data infrastructure.",
+    concept: "Generic business news is a commodity. But a C-suite executive at a space startup, a hedge fund analyst tracking synthetic biology companies, or a government official overseeing quantum computing policy will pay $5,000–$20,000 per year for a platform that combines real-time proprietary data, expert analyst commentary, curated deal flow, and access to a network of verified industry insiders. This is the Bloomberg Terminal model applied to frontier industries that are growing at 30–50% annually but have no specialized intelligence infrastructure. One analyst and a sharp editorial voice can build this for almost nothing.",
+    industry: "B2B media and data is a $30B+ market that has consistently produced outsized returns (Bloomberg, Refinitiv/LSEG, Dealogic). The key insight is that niche B2B intelligence commands dramatically higher pricing than general media: 10,000 subscribers at $10,000/year = $100M ARR, a scale entirely achievable within a focused vertical over 5 years.",
+    opportunity: "Frontier industries (space economy, synthetic biology, quantum computing, fusion energy) are receiving tens of billions in investment but have zero dedicated intelligence infrastructure. Decision-makers are navigating these sectors blind, relying on generic tech press that lacks the technical depth to be actionable. A founder with genuine domain expertise and a commitment to rigor can establish unassailable authority within 24 months.",
+    revenue: "High-ticket annual SaaS subscriptions ($5,000–$20,000/seat/year). Enterprise data licensing to investment banks, consultancies, and government agencies ($50k–$500k/year). Premium industry conferences and roundtables ($5,000–$15,000 per delegate). M&A advisory and deal facilitation using proprietary network access. Sponsored research reports for industry participants.",
+    scalability: "Content and data have zero marginal cost of reproduction — your 10,000th subscriber costs nothing more than your 10th. Build a proprietary database tracking every deal, company, and technology in the vertical. Expand to adjacent verticals using the same platform architecture. The audience becomes a venture deal flow source and an M&A advisory pipeline.",
+    moat: "Brand authority and perceived credibility in a niche technical community are extraordinarily durable — once you are 'the source' in a sector, dislodging you requires years of consistent effort by a competitor. Exclusive relationships with industry insiders create content no one else can produce. Proprietary databases with years of historical data are non-replicable.",
+    entry: "Very low capital barrier. The primary requirement is domain expertise and editorial discipline. The challenge is building initial audience and establishing credibility with skeptical technical experts — this takes 12–24 months of consistent, genuinely high-quality output.",
+    starting: "1) Choose one deep-tech vertical where you have genuine interest or expertise. 2) Launch a weekly newsletter with genuinely novel analysis (not aggregation). 3) Conduct original interviews with 2–3 recognized experts per month. 4) Build a proprietary dataset (e.g., tracking every commercial satellite launch and its payload). 5) At 5,000 engaged subscribers, introduce a paywalled data dashboard at $500/month.",
+    expansion: "Free newsletter → Paywalled intelligence terminal → Enterprise data licensing → Industry conference → Venture fund using media platform for proprietary deal flow → Sale to a major financial data company (Bloomberg, LSEG, S&P Global) at 8–15x ARR."
+  },
+  {
+    id: 40,
+    title: "Commercial Autonomous Surface Vehicles (ASVs)",
+    sector: "tech",
+    capital: "high",
+    geo: "global",
+    geoLabel: "UK / Australia / USA",
+    capitalLabel: "High ($500k–$2M R&D and prototyping)",
+    marketSize: "$10B+ maritime autonomy by 2030",
+    timeToScale: "5–8 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Manufacture and operate fleets of unmanned drone boats equipped with sonar, optical, and subsea sensors for offshore wind farm inspection, subsea cable monitoring, and maritime domain awareness — serving both commercial operators and allied defense forces.",
+    concept: "The 'Blue Economy' — offshore energy, global shipping, subsea internet infrastructure — is one of the world's largest sectors but is profoundly underserved by automation. Sending human crews offshore for routine inspection, monitoring, and security operations is expensive ($50,000–$200,000 per vessel-day), dangerous, and weather-dependent. An Autonomous Surface Vehicle (ASV) — a ruggedized, sensor-equipped drone boat — can perform continuous monitoring at a fraction of the cost, in sea states too dangerous for human crews. The same hardware can serve commercial clients (offshore wind, oil and gas) and military clients (port security, submarine cable protection) with software-defined mission profiles.",
+    industry: "The global maritime autonomy market is projected to exceed $10 billion by 2030. Offshore wind alone will require hundreds of billions of dollars in O&M (operations and maintenance) spending over the next two decades. The AUKUS alliance (Australia, UK, USA) has committed tens of billions to maritime autonomous systems. Subsea cable protection has become a priority following high-profile sabotage incidents.",
+    opportunity: "Geopolitical tensions around critical submarine infrastructure (internet cables, gas pipelines) have created urgent demand for persistent maritime surveillance that manned vessels cannot economically provide. Offshore wind developers face massive O&M cost pressure and are actively seeking autonomous inspection solutions. The market is in its earliest innings — no dominant platform provider exists.",
+    revenue: "Hardware sales to allied navies and coast guards (unit prices $500k–$5M per ASV depending on capability). 'Data-as-a-Service' leasing to offshore energy operators ($10k–$100k/month per deployed vessel). Long-term monitoring contracts with subsea cable operators and pipeline companies. Software licensing for the autonomous navigation and mission-planning stack.",
+    scalability: "Software-defined hardware means the same vessel hardware serves multiple mission types via over-the-air updates. Build a 'sensor fusion' platform that aggregates data from deployed ASV fleets into an intelligence dashboard sold as SaaS. Scale manufacturing as defense and commercial contracts grow.",
+    moat: "Autonomous swarm coordination software is extremely difficult to replicate. Harsh-weather operational reliability built through years of real-world deployment is a compounding advantage. Military procurement relationships, once established, create long-term contract pipelines. Classified defense technology creates absolute barriers to civilian competitors.",
+    entry: "Significant R&D investment required for a seaworthy, autonomous prototype. Regulatory hurdles for unmanned vessel operations in commercial shipping lanes are substantial. Military procurement cycles are long (3–7 years). However, commercial offshore wind contracts can be won much faster and fund the military program development.",
+    starting: "1) Build a small, ruggedized prototype ASV focused on one sensor payload (e.g., subsea sonar for cable inspection). 2) Approach an offshore wind farm operator for a paid pilot to monitor subsea foundations. 3) Use commercial deployment to accumulate real-world operational data. 4) Apply for a defense innovation grant (DARPA, UK DSTL, Australian DSTO). 5) File provisional patents on autonomous navigation innovations.",
+    expansion: "Commercial inspection ASV → Defense surveillance platform → Autonomous swarm deployment → Prime defense contractor or maritime data company → Acquisition by a major defense prime (BAE Systems, L3Harris, Thales)."
+  },
+  {
+    id: 41,
+    title: "Autonomous AI Drone Inspection for Energy Assets",
+    sector: "tech",
+    capital: "medium",
+    geo: "global",
+    geoLabel: "USA (Texas) / Middle East",
+    capitalLabel: "Medium ($50k–$200k)",
+    marketSize: "$15B+ industrial inspection",
+    timeToScale: "3–5 years",
+    revenuePotential: "$100M–$500M",
+    summary: "Deploy AI-powered autonomous drone fleets to inspect flare stacks, pipelines, transmission towers, and solar farms — automatically detecting rust, micro-fractures, and thermal anomalies at a fraction of the cost of human rope-access teams.",
+    concept: "Heavy industry — oil and gas refineries, power transmission networks, solar farms, chemical plants — depends on continuous asset inspection to prevent catastrophic failures. Human inspection (rope access teams, scaffolding, helicopter surveys) is slow, expensive ($5,000–$50,000 per inspection day), and dangerous. Today's drone inspection market is mostly manual — a human operator flies a drone and reviews footage. The future is fully autonomous: 'drone-in-a-box' systems permanently stationed at assets that launch, execute pre-programmed inspection missions, and return automatically — with AI analyzing footage in real time and flagging anomalies without human review. This is 100x more cost-effective than the status quo.",
+    industry: "The global industrial inspection market exceeds $15 billion and is growing at 12% annually. The oil and gas sector alone spends over $2 billion annually on physical asset inspection. Solar farm inspections are an exploding market as global solar capacity is set to triple by 2030. Aviation regulations for 'Beyond Visual Line of Sight' (BVLOS) autonomous drone flights are rapidly maturing in the US (FAA), UK (CAA), and Middle East (GCAA).",
+    opportunity: "The bottleneck in drone inspection today is not the drone hardware — it is the AI software that can accurately identify specific defect types (thermal delamination in solar panels, stress fractures in steel pipework, corrosion in offshore structures) and the BVLOS regulatory approval needed for truly autonomous operation. A company that builds the best computer vision model for one specific asset class and achieves BVLOS certification first creates a durable competitive position.",
+    revenue: "Subscription-based 'Inspection-as-a-Service' contracts ($5,000–$50,000/asset/month for continuous monitoring). Per-inspection pricing for discrete engagements. Annual maintenance contract for drone-in-a-box hardware. Data analytics subscription: access to the defect detection dashboard and historical trend analysis. Regulatory compliance report generation (required by industry regulators).",
+    scalability: "Once the computer vision model accurately identifies defects for one asset class, it can be deployed globally with zero incremental training cost. Each additional inspection improves the AI model — creating a compounding data advantage. Build modular 'drone-in-a-box' stations that are shipping-container deployable anywhere in the world.",
+    moat: "A proprietary training dataset of industrial defects — accumulated through thousands of real inspections — is irreplaceable and improves the detection model with every deployment. BVLOS certifications, once obtained, are significant regulatory barriers. Long-term subscription contracts with large energy operators create switching costs. Hardware integration into permanent on-site stations creates physical lock-in.",
+    entry: "BVLOS regulatory approval is the primary bottleneck — it requires FAA/CAA waivers, extensive safety documentation, and demonstrated operational reliability. Building a genuinely accurate computer vision model for industrial defects requires a large labeled dataset that takes time to accumulate.",
+    starting: "1) Focus on one asset class — solar farm thermal inspection is the lowest regulatory barrier and fastest-growing market. 2) Use off-the-shelf thermal drones (DJI Zenmuse) with custom AI analysis software. 3) Sign 5 commercial solar farms as paying clients at $2,000/inspection. 4) Use the flight data to train your defect detection model. 5) Apply for an FAA BVLOS waiver using accumulated safety data.",
+    expansion: "Solar farm inspection → Oil and gas pipelines → Power transmission → 'Drone-in-a-box' permanent monitoring platform → AI defect detection platform licensed globally to industrial inspection companies."
+  },
+  {
+    id: 42,
+    title: "Fractional Tokenized Real-World Asset (RWA) Platform",
+    sector: "finance",
+    capital: "high",
+    geo: "global",
+    geoLabel: "Singapore / Switzerland / UAE",
+    capitalLabel: "High ($1M–$5M regulatory and legal)",
+    marketSize: "$16T+ illiquid private assets",
+    timeToScale: "5–8 years",
+    revenuePotential: "$100M–$2B",
+    summary: "Build the legally compliant infrastructure that tokenizes ownership of institutional-grade, cash-flowing assets — toll roads, solar farms, regional data centers — allowing retail and mid-tier investors to buy fractional shares, creating a new stock exchange for private infrastructure.",
+    concept: "The world's most attractive investment assets — infrastructure, private real estate, private equity — are locked behind minimum check sizes of $5–50 million, accessible only to sovereign wealth funds and the ultra-wealthy. Blockchain technology enables efficient fractional ownership and secondary market liquidity for these assets at negligible cost. A legally compliant platform that acquires high-quality assets, tokenizes them into tradable units, and operates a licensed secondary marketplace fundamentally democratizes access to the world's best risk-adjusted returns while generating fee income at every step of the asset lifecycle.",
+    industry: "Over $16 trillion in institutional assets are currently illiquid, inaccessible to most investors. The RWA tokenization market is projected to exceed $10 trillion by 2030 according to BCG. BlackRock, Franklin Templeton, and JPMorgan are all actively tokenizing assets — providing validation from the most conservative institutions in finance. Singapore, Switzerland, and the UAE have established clear regulatory frameworks for digital securities.",
+    opportunity: "The structural barrier to private infrastructure investment has never been technology — it has always been regulatory compliance and cap table management. Blockchain eliminates the cap table management problem. Progressive regulators (MAS Singapore, FINMA Switzerland, FSRA UAE) have created regulatory sandboxes that allow compliant digital securities issuance. The first platform to combine high-quality asset origination with a licensed secondary market creates a structural first-mover advantage.",
+    revenue: "Asset origination fees (1–2% of asset value at tokenization). Annual management fees (0.5–1.5% of assets under management). Trading fees on secondary marketplace (0.1–0.5% per transaction). Interest income on capital held pending investment. Premium membership fees for institutional access.",
+    scalability: "The platform business model scales with assets under management and trading volume — both of which compound as the platform builds trust. Each successful asset creates a reference case for institutional investors to deploy capital at larger scale. Secondary market liquidity attracts more investors, which attracts better quality assets — a powerful flywheel.",
+    moat: "Broker-dealer and Alternative Trading System (ATS) licenses are punishingly expensive and time-consuming to obtain — creating absolute regulatory barriers for new entrants. High-quality asset relationships with infrastructure developers and real estate funds are built over years. Institutional trust, once established, is self-reinforcing. Secondary market liquidity itself becomes a moat as platforms with more trading volume attract more buyers and sellers.",
+    entry: "Regulatory compliance is the primary barrier: obtaining broker-dealer, ATS, and digital asset licenses across multiple jurisdictions requires $1–3M in legal fees and 18–36 months of regulatory engagement. Acquiring high-quality initial assets to list is the second barrier — institutional asset owners will not tokenize on an unproven platform.",
+    starting: "1) Incorporate in Singapore or UAE and begin regulatory sandbox application immediately. 2) Hire a securities regulatory attorney with digital assets experience as a co-founder or senior advisor. 3) Identify one simple, well-understood asset (a fully leased commercial warehouse with a 10-year lease) for the first tokenization. 4) Conduct the tokenization under regulatory sandbox exemptions. 5) Build secondary marketplace as trading volume grows.",
+    expansion: "Single asset tokenization → Multi-asset platform → Licensed secondary marketplace → Global RWA exchange → Acquisition by a major financial infrastructure company (Nasdaq, ICE, or a major bank) or IPO."
+  },
+  {
+    id: 43,
+    title: "Precision Fermentation CDMO (Contract Bio-Manufacturing)",
+    sector: "infra",
+    capital: "high",
+    geo: "global",
+    geoLabel: "USA (Midwest) / Netherlands",
+    capitalLabel: "High ($3M–$5M+)",
+    marketSize: "$100B+ synthetic biology by 2030",
+    timeToScale: "5–8 years",
+    revenuePotential: "$500M–$5B",
+    summary: "Build the industrial bioreactor infrastructure that precision fermentation startups desperately need to scale — becoming the 'TSMC of Biology,' the dominant contract manufacturer of synthetic proteins, animal-free dairy, lab-grown collagen, and specialty enzymes.",
+    concept: "Hundreds of synthetic biology startups have proven compelling lab-bench science — animal-free dairy proteins, spider-silk textiles, lab-grown collagen for cosmetics, specialized industrial enzymes. But scaling from a 10-liter lab bioreactor to a 50,000-liter commercial production fermenter requires specialized stainless steel infrastructure, bioprocess engineering expertise, and food-grade or pharma-grade facility certification that most startups cannot afford to build. A Contract Development and Manufacturing Organization (CDMO) that builds this infrastructure and charges startups for manufacturing runs captures the 'picks and shovels' position in the synthetic biology revolution — agnostic to which specific startup wins.",
+    industry: "The synthetic biology market is projected to exceed $100 billion by 2030. Investment in precision fermentation startups has exceeded $10 billion globally over the past five years. The bottleneck to commercialization for virtually every fermentation-based startup is manufacturing capacity — not science, not market demand. Traditional pharmaceutical CDMOs are not optimized for food-grade fermentation applications, creating a significant gap.",
+    opportunity: "The fermentation CDMO gap is well-documented and actively discussed in the synthetic biology investment community. Startups are routinely delayed 2–4 years in commercialization due to lack of manufacturing capacity. A well-equipped, food-grade fermentation facility in a location with cheap glucose feedstock (US Midwest: corn syrup; Netherlands: European sugar beet) can have a multi-year waiting list before a single tank is built — if relationships are established now.",
+    revenue: "Contract manufacturing fees: cost-plus model ($5–50/liter of fermentation volume depending on complexity) or fixed-fee per batch. Technology transfer and scale-up consulting ($100k–$1M per client engagement). Equity participation in breakthrough startups in exchange for discounted manufacturing access. Long-term manufacturing supply agreements (3–5 year contracts providing revenue visibility).",
+    scalability: "Build the first 10,000-liter facility and immediately have a queue of clients. Use the cash flow and client validation to raise debt financing for a 100,000-liter expansion. Each capacity expansion attracts larger clients (food companies, major cosmetic brands) who require contract manufacturing at commercial scale.",
+    moat: "Capital moat: the cost of building fermentation infrastructure is a significant barrier that few can replicate. Food-grade and pharmaceutical-grade certifications (FDA, EFSA) take years to obtain. Bioprocess expertise for specific organisms and products is scarce and expensive to hire. Long-term client relationships create switching costs — a startup that scales their product on your tanks will not easily move to a new CDMO.",
+    entry: "Very high capital requirements for industrial bioreactors, sterile facility construction, and regulatory certification. Bioprocess engineering talent is scarce globally. However, retrofitting an existing brewery or pharmaceutical plant can significantly reduce greenfield construction costs.",
+    starting: "1) Identify an existing fermentation facility (abandoned brewery, legacy pharma plant) for retrofit. 2) Hire a head of bioprocess engineering with CDMO experience. 3) Pursue FDA/EFSA food-grade manufacturing certification. 4) Sign letters of intent with 3–5 precision fermentation startups before breaking ground. 5) Approach a synthetic biology-focused VC (Breakthrough Energy Ventures, DCVC Bio) for co-investment.",
+    expansion: "Pilot CDMO facility → Commercial-scale multi-tank facility → Pan-continental CDMO network → Vertical integration into specific high-margin product categories → 'TSMC of Biology' — the indispensable manufacturing backbone of the synthetic biology economy."
+  },
+  {
+    id: 44,
+    title: "Hyper-Localized Functional FMCG for Emerging Markets",
+    sector: "infra",
+    capital: "medium",
+    geo: "nigeria",
+    geoLabel: "Nigeria / India / Indonesia",
+    capitalLabel: "Medium ($100k–$500k)",
+    marketSize: "$500B+ emerging market FMCG",
+    timeToScale: "4–7 years",
+    revenuePotential: "$100M–$1B",
+    summary: "Build a high-quality, affordable, nutrient-fortified FMCG brand using indigenous crops (sorghum, millet, cassava, moringa) to replace imported food staples — becoming structurally immune to FX volatility while serving the rapidly expanding middle class.",
+    concept: "Global FMCG giants (Nestlé, Unilever, Kraft Heinz) export Western product formulations to emerging markets at premium prices — and when local currencies depreciate, these products become unaffordable. A manufacturer that sources 100% local inputs, manufactures locally, and sells in local currency is structurally immune to FX risk while competitors' prices spike. Focus on functional, fortified products (high-protein baby formula from soybean, vitamin-fortified sorghum flour, probiotic yogurt from local milk) that address genuine nutritional gaps in the target market. The 'better for you' positioning commands premium pricing without imported input costs.",
+    industry: "Emerging market FMCG is a $500B+ market growing at 7% annually. Nigeria, India, and Indonesia collectively have over 1.5 billion consumers, of whom 400 million are joining the consuming middle class over the next decade. The structural shift away from imported brands toward locally manufactured alternatives is accelerating due to currency pressures and deliberate government import substitution policies.",
+    opportunity: "Currency devaluation in Nigeria, Egypt, and Pakistan has made imported food brands prohibitively expensive — creating a window for locally manufactured alternatives to establish brand loyalty permanently. Government import substitution policies (Nigeria's CAMA reforms, India's PLI scheme) provide tax incentives, Pioneer Status, and preferential procurement for local manufacturers. The first locally-made brand to establish quality credibility in a category before Western brands re-establish price competitiveness creates a durable market position.",
+    revenue: "Retail and wholesale FMCG sales through supermarket chains, distributors, and open markets. Direct-to-consumer e-commerce (Jumia, Konga, Shopify). Institutional sales (school feeding programs, hospital catering, military contracts). Export to diaspora markets in the UK, US, and Europe who seek authentic African food products at accessible prices.",
+    scalability: "Once a brand is established in one product category, the distribution network becomes a platform for new SKUs at minimal incremental cost. Expand from one state to national distribution. Build an OEM manufacturing arm that produces private-label products for retailers. Regional export to neighboring ECOWAS countries as a second growth engine.",
+    moat: "Complete FX immunity is a structural cost advantage that compounds every time the naira depreciates. Local brand loyalty, once established among cost-conscious consumers, is durable. Proprietary formulations using indigenous crops (moringa protein concentrate, cassava-based thickeners) create product differentiation. Distribution network depth in secondary and tertiary cities creates a physical moat that takes years to replicate.",
+    entry: "Medium. NAFDAC registration, food safety certification, and distribution network development are the primary requirements. Fighting incumbent brand loyalty and distributor relationships requires patient marketing investment.",
+    starting: "1) Identify one highly imported staple category where local quality alternatives don't exist (high-protein weaning food, fortified sorghum flour, or affordable probiotic drink). 2) Develop a formulation using a NAFDAC-registered food technologist. 3) Partner with a co-manufacturer for initial production runs while building your own facility. 4) Distribute through 500 retailers in one state using a direct sales force. 5) Document nutritional superiority and local origin in all marketing.",
+    expansion: "Single-SKU local brand → Multi-category FMCG portfolio → National distribution → ECOWAS regional export → Sale to a global FMCG conglomerate (Nestlé, Unilever) seeking locally-rooted African brands at 2–4x revenue."
+  },
+  {
+    id: 45,
+    title: "AI-Driven 'Boring Business' Roll-Up (HoldCo)",
+    sector: "finance",
+    capital: "medium",
+    geo: "global",
+    geoLabel: "USA / Western Europe",
+    capitalLabel: "Medium–High ($200k+ equity, leverage-dependent)",
+    marketSize: "$10T+ US small business market",
+    timeToScale: "7–15 years",
+    revenuePotential: "$500M–$5B+",
+    summary: "Acquire fragmented, cash-flowing 'boring' service businesses (commercial HVAC, fire safety inspection, industrial plumbing, pest control) from retiring baby boomers at 3–5x EBITDA, inject AI into back-office operations to expand margins, then sell the aggregated platform to private equity at 10–15x EBITDA.",
+    concept: "Tens of millions of baby boomer business owners are retiring over the next decade, many owning unglamorous but highly cash-generative businesses — commercial HVAC maintenance, industrial cleaning, fire safety inspection, roofing, pest control — that produce $500k–$5M in annual EBITDA with minimal capex. Traditional private equity buys these at 5–7x EBITDA and cuts costs. A new generation of 'HoldCo' operators buys them at 3–5x EBITDA (below PE radar) and adds value through centralized AI-powered marketing, dispatch optimization, automated billing, and shared CFO/HR services — growing revenue while cutting overhead. The multiple arbitrage alone (buying at 4x, selling the platform at 12x) creates extraordinary returns before any operational improvement.",
+    industry: "The US small business market represents over $10 trillion in total enterprise value. The 'Silver Tsunami' of retiring boomer owners is creating the largest transfer of business ownership in history — with sellers highly motivated and valuations at historic lows for these overlooked categories. Warren Buffett's Berkshire Hathaway and Constellation Software have proven this model at scale. The AI layer is the new differentiator that dramatically expands margin post-acquisition.",
+    opportunity: "Traditional search fund operators and small PE firms focus on businesses generating $5–20M EBITDA — above this market. Mega-PE ignores anything below $50M EBITDA. A disciplined acquirer targeting the $500k–$3M EBITDA range faces minimal competition for quality assets. SBA (Small Business Administration) financing in the US allows acquisitions with as little as 10% equity — making this one of the most capital-efficient paths to building a large enterprise.",
+    revenue: "Cash flow from acquired operating businesses (30–50% EBITDA margins in service businesses with centralized overhead). Management fees charged to operating subsidiaries. Exit proceeds from sale of the consolidated platform to a strategic buyer or PE firm. Dividend recapitalizations as debt is paid down by operating cash flows.",
+    scalability: "The model compounds: cash flow from businesses 1–3 funds the equity for businesses 4–6, which funds 7–10. Centralized shared services (AI dispatch, marketing, billing) get more efficient as they serve more businesses. Each acquisition adds to the platform's scale, making subsequent acquisitions more attractive to sellers who want to join a growing group.",
+    moat: "A centralized 'shared services' platform (sophisticated AI marketing, financial reporting, HR) that local competitors simply cannot afford is the core operational moat. Acquisition track record and seller references create a proprietary deal flow network — motivated sellers call you rather than brokers. Regional density in specific geographies creates procurement advantages (fleet purchasing, insurance, uniforms).",
+    entry: "Moderate. The primary requirements are deal sourcing relationships (working with business brokers), financial modeling expertise, and post-acquisition operational management capability. SBA financing significantly reduces equity requirements. The main risk is integration failure and key-person dependency in acquired businesses.",
+    starting: "1) Identify one specific service vertical to focus on (commercial fire safety inspection is an excellent starting category — recurring regulatory demand, subscription-like revenue, aging ownership base). 2) Approach 50 business owners or brokers in your target area. 3) Use SBA 7(a) financing to acquire the first business ($2M revenue, $600k EBITDA) with $120k–$200k equity. 4) Implement centralized marketing, dispatch, and billing using off-the-shelf AI tools (ServiceTitan, HubSpot, QuickBooks AI). 5) Prove margin expansion and acquire business 2.",
+    expansion: "First acquisition (local service company) → Centralized shared services platform → 5–10 acquired businesses in one geography → Regional service company → PE exit at 12–15x EBITDA → Repeat with larger fund targeting $250M–$1B enterprise value."
+  }
+];
+
+function getCapitalClass(cap) {
+  if (cap === 'low') return 'tag-capital-low';
+  if (cap === 'medium') return 'tag-capital-med';
+  return 'tag-capital-high';
+}
+
+function getCapitalLabel(cap) {
+  if (cap === 'low') return '● Low Capital';
+  if (cap === 'medium') return '● Medium Capital';
+  return '● High Capital';
+}
+
+function renderCards(data) {
+  const grid = document.getElementById('cards-grid');
+  const badge = document.getElementById('count-badge');
+  grid.innerHTML = '';
+  badge.textContent = `${data.length} shown`;
+
+  data.forEach(opp => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="card-number">#${String(opp.id).padStart(2,'0')}</div>
+        <div class="card-title-area">
+          <div class="card-title">${opp.title}</div>
+          <div class="card-tags">
+            <span class="tag ${getCapitalClass(opp.capital)}">${getCapitalLabel(opp.capital)}</span>
+            <span class="tag tag-geo">📍 ${opp.geoLabel}</span>
+            <span class="tag tag-sector">${opp.sector.toUpperCase()}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-summary">${opp.summary}</p>
+      </div>
+      <div class="card-metrics">
+        <div class="metric">
+          <div class="metric-label">Market Size</div>
+          <div class="metric-value">${opp.marketSize}</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Time to Scale</div>
+          <div class="metric-value">${opp.timeToScale}</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Revenue Potential</div>
+          <div class="metric-value">${opp.revenuePotential}</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Capital Req.</div>
+          <div class="metric-value">${opp.capitalLabel}</div>
+        </div>
+      </div>
+      <button class="card-expand-btn" data-id="${opp.id}">View Full Analysis →</button>
+    `;
+    card.querySelector('.card-expand-btn').addEventListener('click', () => openModal(opp.id));
+    grid.appendChild(card);
+  });
+}
+
+function openModal(id) {
+  const opp = opportunities.find(o => o.id === id);
+  document.getElementById('m-number').textContent = `OPPORTUNITY #${String(opp.id).padStart(2,'0')} — ${opp.sector.toUpperCase()}`;
+  document.getElementById('m-title').textContent = opp.title;
+  document.getElementById('m-tags').innerHTML = `
+    <span class="tag ${getCapitalClass(opp.capital)}">${getCapitalLabel(opp.capital)}</span>
+    <span class="tag tag-geo">📍 ${opp.geoLabel}</span>
+  `;
+  document.getElementById('m-metrics').innerHTML = `
+    <div class="modal-metric"><span class="modal-metric-value">${opp.marketSize}</span><span class="modal-metric-label">Market Size</span></div>
+    <div class="modal-metric"><span class="modal-metric-value">${opp.timeToScale}</span><span class="modal-metric-label">Time to Scale</span></div>
+    <div class="modal-metric"><span class="modal-metric-value">${opp.revenuePotential}</span><span class="modal-metric-label">Revenue Potential</span></div>
+  `;
+
+  const sections = [
+    { title: '01 — Business Concept', content: opp.concept },
+    { title: '02 — Industry Overview', content: opp.industry },
+    { title: '03 — Why This Opportunity Exists', content: opp.opportunity },
+    { title: '04 — Revenue Model', content: opp.revenue },
+    { title: '05 — Scalability Potential', content: opp.scalability },
+    { title: '06 — Competitive Advantage / Moat', content: opp.moat },
+    { title: '07 — Entry Barrier', content: opp.entry },
+    { title: '08 — Starting Strategy', content: opp.starting },
+    { title: '09 — Expansion Path to $250M+', content: opp.expansion },
+  ];
+
+  document.getElementById('m-sections').innerHTML = sections.map(s => `
+    <div class="modal-section">
+      <div class="modal-section-title">${s.title}</div>
+      <p>${s.content}</p>
+    </div>
+  `).join('');
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('modal').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('modal-close').addEventListener('click', () => {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+});
+
+document.getElementById('modal-overlay').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('modal-overlay')) {
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// Filters
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    let filtered = opportunities;
+    if (filter === 'low') filtered = opportunities.filter(o => o.capital === 'low');
+    else if (filter === 'medium') filtered = opportunities.filter(o => o.capital === 'medium');
+    else if (filter === 'high') filtered = opportunities.filter(o => o.capital === 'high');
+    else if (filter === 'nigeria') filtered = opportunities.filter(o => o.geo === 'nigeria');
+    else if (filter === 'global') filtered = opportunities.filter(o => o.geo === 'global');
+    else if (filter === 'tech') filtered = opportunities.filter(o => o.sector === 'tech');
+    else if (filter === 'infra') filtered = opportunities.filter(o => o.sector === 'infra');
+    else if (filter === 'finance') filtered = opportunities.filter(o => o.sector === 'finance');
+    renderCards(filtered);
+  });
+});
+
+renderCards(opportunities);
+</script>
+</body>
+</html>
